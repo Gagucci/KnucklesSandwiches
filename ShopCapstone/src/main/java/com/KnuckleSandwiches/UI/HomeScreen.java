@@ -14,13 +14,13 @@ public class HomeScreen {
         String input = read.nextLine();
 
         if ("a".equalsIgnoreCase(input)) {
-            System.out.println("Admin login");
+            System.out.println("Moving to Admin Login...");
             // Call admin login method here
         } else if ("q".equalsIgnoreCase(input)) {
-            System.out.println("Quitting the program");
+            System.out.println("Quitting the program...");
             System.exit(0);
         } else if (input.isEmpty()) {
-            System.out.println("Starting the program");
+            System.out.println("Starting the program...");
             mainMenu();
         } else {
             System.out.println("Invalid input. Please try again.");

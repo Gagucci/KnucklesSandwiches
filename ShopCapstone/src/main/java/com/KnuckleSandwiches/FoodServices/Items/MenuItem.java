@@ -1,4 +1,7 @@
 package com.KnuckleSandwiches.FoodServices.Items;
 
-public abstract class MenuItem {
+import com.KnuckleSandwiches.Interfaces.Priceable;
+
+public abstract class MenuItem implements Priceable {
+    double price;
 }

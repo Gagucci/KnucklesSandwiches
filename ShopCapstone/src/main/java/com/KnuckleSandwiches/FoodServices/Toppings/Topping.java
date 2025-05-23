@@ -1,4 +1,6 @@
 package com.KnuckleSandwiches.FoodServices.Toppings;
 
-public abstract class Topping {
+import com.KnuckleSandwiches.Interfaces.Priceable;
+
+public abstract class Topping implements Priceable {
 }
