@@ -1,6 +1,9 @@
 package com.KnuckleSandwiches.UI;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import static java.awt.SystemColor.text;
 
 public class HomeScreen {
 
@@ -42,20 +45,25 @@ public class HomeScreen {
                                     | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/
                                     |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/\s
                 """ + ConsoleColors.RESET);
-        System.out.println("----------------------------------------------------------------------------------------");
-        System.out.printf("%-30s | %-30s | %-30s\n", " Press Enter to Start Program", "   Press A for Admin Login ",  "   Press Q to Quit");
-        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.println("""
+                ----------------------------------------------------------------------------------------
+                |    Press Enter to Order      |    Press A for Admin Login    |    Press Q to Quit    |        \s
+                ----------------------------------------------------------------------------------------
+                """);
         System.out.print("> ");
         String input = read.nextLine();
 
         if ("a".equalsIgnoreCase(input)) {
             System.out.println("Moving to Admin Login...");
+            loadingBar();
             // Call admin login method here
         } else if ("q".equalsIgnoreCase(input)) {
             System.out.println("Quitting the program...");
+            loadingBar();
             System.exit(0);
         } else if (input.isEmpty()) {
             System.out.println("Starting the program...");
+            loadingBar();
             for ( char c : art.toCharArray()) {
                 System.out.print(ConsoleColors.RED + c + ConsoleColors.RESET);
                 try {
@@ -72,7 +80,7 @@ public class HomeScreen {
     }
 
     public static void mainMenu() {
-        System.out.println(ConsoleColors.YELLOW +"""
+        System.out.println(ConsoleColors.YELLOW + """
                                     __ __                  __   __    _                  \s
                                    / //_/____  __  _______/ /__/ /__ ( )_____            \s
                                   / ,<  / __ \\/ / / / ___/ //_/ / _ \\|// ___/            \s
@@ -83,7 +91,25 @@ public class HomeScreen {
                                  ___/ / /_/ / / / / /_/ /| |/ |/ / / /__/ / / /  __(__  )\s
                                 /____/\\__,_/_/ /_/\\__,_/ |__/|__/_/\\___/_/ /_/\\___/____/ \s
                 """ + ConsoleColors.RESET);
-        System.out.println("----------------------------------------------------------------------------------------");
-        System.out.printf("%-30s | %-30s | %-30s\n", " Press 1 ", "   Press P for Payment ",  "   Press R for Reports");
+        System.out.println("""
+                ----------------------------------------------------------------------------------------
+                | Press 1 to Add a Sandwich |     Press 2 to Add a Drink     |    Press 3 to Add Chips |
+                |               | Press 4 to Checkout Order | Press 5 to Cancel Order |                |
+                ----------------------------------------------------------------------------------------
+                """);
     }
+
+    public static void loadingBar() {
+        try {
+            for (int i = 0; i <= 100; i += 20) {
+                System.out.print("\rLoading: [" + "=".repeat(i / 5) + "] " + i + "%");
+                TimeUnit.MILLISECONDS.sleep(100);
+            }
+            System.out.println("\n");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Loading interrupted.");
+        }
+    }
+
 }
