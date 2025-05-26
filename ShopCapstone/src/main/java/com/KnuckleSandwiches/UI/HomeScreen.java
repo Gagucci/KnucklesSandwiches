@@ -2,8 +2,8 @@ package com.KnuckleSandwiches.UI;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import static com.KnuckleSandwiches.UI.OrderScreen.*;
 
-import static java.awt.SystemColor.text;
 
 public class HomeScreen {
 
@@ -39,48 +39,67 @@ public class HomeScreen {
 
     public static void start() {
         System.out.print(ConsoleColors.GREEN + """
-                                     _       __     __                       \s
-                                    | |     / /__  / /________  ____ ___  ___\s
-                                    | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\
-                                    | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/
-                                    |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/\s
+                                        _       __     __                       \s
+                                       | |     / /__  / /________  ____ ___  ___\s
+                                       | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\
+                                       | |/ |/ /  __/ / /__/ /_/ / / / / / /  __/
+                                       |__/|__/\\___/_/\\___/\\____/_/ /_/ /_/\\___/\s
                 """ + ConsoleColors.RESET);
         System.out.println("""
                 ----------------------------------------------------------------------------------------
-                |    Press Enter to Order      |    Press A for Admin Login    |    Press Q to Quit    |        \s
+                |                                       Options:                                       |
+                |                                                                                      |
+                |    Press Enter to Order    |    Press A for Admin Login    |     Press Q to Quit     |        \s
                 ----------------------------------------------------------------------------------------
                 """);
         System.out.print("> ");
         String input = read.nextLine().trim();
 
-        if ("a".equalsIgnoreCase(input)) {
-            System.out.println("Moving to Admin Login...");
-            loadingBar();
-            // Call admin login method here
-        } else if ("q".equalsIgnoreCase(input)) {
-            System.out.println("Quitting the program...");
-            loadingBar();
-            System.exit(0);
-        } else if (input.isBlank()) { // Simplified to use isBlank for better readability
-            System.out.println("Starting the program...");
-            loadingBar();
-            for (char c : art.toCharArray()) {
-                System.out.print(ConsoleColors.RED + c + ConsoleColors.RESET);
-                try {
-                    Thread.sleep(1); // Adjust the speed of the animation
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+        while (true) {
+            if (!input.matches("[a-zA-Z\\s]*")) {
+                System.out.println("Invalid input. Please enter only letters and spaces.");
+                System.out.print("> ");
+                input = read.nextLine().trim();
+                continue;
             }
-            mainMenu();
-        } else {
-            System.out.println("Invalid input. Please try again.");
-            start(); // Restart the home screen
+
+            switch (input.toLowerCase()) {
+                case "a":
+                    System.out.println("Moving to Admin Login...");
+                    loadingBar();
+                    // Call admin login method here
+                    return; // Exit the loop after processing
+                case "q":
+                    System.out.println("Quitting the program...");
+                    loadingBar();
+                    System.out.println(ConsoleColors.RED + art + """
+                                      ________                __   __  __                         \s
+                                     /_  __/ /_  ____ _____  / /__ \\ \\/ /___  __  __              \s
+                                      / / / __ \\/ __ `/ __ \\/ //_/  \\  / __ \\/ / / /              \s
+                                     / / / / / / /_/ / / / / ,<     / / /_/ / /_/ /               \s
+                                    /_/_/_/_/_/\\__,_/_/ /_/_/|_|   /_/\\____/\\__,_( )     _       __
+                                      / ____/___  ____ ___  ___       /   | ____ |/___ _(_)___  / /
+                                     / /   / __ \\/ __ `__ \\/ _ \\     / /| |/ __ `/ __ `/ / __ \\/ /\s
+                                    / /___/ /_/ / / / / / /  __/    / ___ / /_/ / /_/ / / / / /_/ \s
+                                    \\____/\\____/_/ /_/ /_/\\___/    /_/  |_\\__, /\\__,_/_/_/ /_(_)  \s
+                                                                         /____/                   \s
+                    """ + ConsoleColors.RESET);
+                    System.exit(0);
+                case "":
+                    System.out.println("Starting the program...");
+                    loadingBar();
+                    mainMenu();
+                    return; // Exit the loop after processing
+                default:
+                    System.out.println("Invalid input. Please enter a valid option.");
+                    System.out.print("> ");
+                    input = read.nextLine().trim();
+            }
         }
     }
 
     public static void mainMenu() {
-        System.out.println(ConsoleColors.YELLOW + """
+        System.out.println(( ConsoleColors.RED + art + ConsoleColors.RESET) + ConsoleColors.YELLOW + """
                                     __ __                  __   __    _                  \s
                                    / //_/____  __  _______/ /__/ /__ ( )_____            \s
                                   / ,<  / __ \\/ / / / ___/ //_/ / _ \\|// ___/            \s
@@ -93,8 +112,11 @@ public class HomeScreen {
                 """ + ConsoleColors.RESET);
         System.out.println("""
                 ----------------------------------------------------------------------------------------
+                |                                       Options:                                       |
+                |                                                                                      |
                 | Press 1 to Add a Sandwich |     Press 2 to Add a Drink     |    Press 3 to Add Chips |
-                |               | Press 4 to Checkout Order | Press 5 to Cancel Order |                |
+                |                                                                                      |
+                |            |   Press 4 to Checkout Order   |   Press 5 to Cancel Order   |           |
                 ----------------------------------------------------------------------------------------
                 """);
         System.out.print("> ");
@@ -116,7 +138,7 @@ public class HomeScreen {
                     case 1:
                         System.out.println("Adding a Sandwich...");
                         loadingBar();
-                        // Call method to add a sandwich
+                        sandwichMenu();
                         break;
                     case 2:
                         System.out.println("Adding a Drink...");
