@@ -7,14 +7,14 @@ import static java.awt.SystemColor.text;
 
 public class HomeScreen {
 
-        static class ConsoleColors {
-            public static final String RESET = "\u001B[0m";
-            public static final String RED = "\u001B[31m";
-            public static final String GREEN = "\u001B[32m";
-            public static final String YELLOW = "\u001B[93m";
-            public static final String BLUE = "\u001B[34m";
-            // ... other colors
-        }
+    static class ConsoleColors {
+        public static final String RESET = "\u001B[0m";
+        public static final String RED = "\u001B[31m";
+        public static final String GREEN = "\u001B[32m";
+        public static final String YELLOW = "\u001B[93m";
+        public static final String BLUE = "\u001B[34m";
+        // ... other colors
+    }
 
     public static final String GREEN = "\u001B[32m";
 
@@ -38,7 +38,7 @@ public class HomeScreen {
     static Scanner read = new Scanner(System.in);
 
     public static void start() {
-        System.out.print(ConsoleColors.GREEN +"""
+        System.out.print(ConsoleColors.GREEN + """
                                      _       __     __                       \s
                                     | |     / /__  / /________  ____ ___  ___\s
                                     | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\
@@ -51,7 +51,7 @@ public class HomeScreen {
                 ----------------------------------------------------------------------------------------
                 """);
         System.out.print("> ");
-        String input = read.nextLine();
+        String input = read.nextLine().trim();
 
         if ("a".equalsIgnoreCase(input)) {
             System.out.println("Moving to Admin Login...");
@@ -61,10 +61,10 @@ public class HomeScreen {
             System.out.println("Quitting the program...");
             loadingBar();
             System.exit(0);
-        } else if (input.isEmpty()) {
+        } else if (input.isBlank()) { // Simplified to use isBlank for better readability
             System.out.println("Starting the program...");
             loadingBar();
-            for ( char c : art.toCharArray()) {
+            for (char c : art.toCharArray()) {
                 System.out.print(ConsoleColors.RED + c + ConsoleColors.RESET);
                 try {
                     Thread.sleep(1); // Adjust the speed of the animation
@@ -97,7 +97,58 @@ public class HomeScreen {
                 |               | Press 4 to Checkout Order | Press 5 to Cancel Order |                |
                 ----------------------------------------------------------------------------------------
                 """);
+        System.out.print("> ");
+
+        String inputString = read.nextLine().trim();
+        int input;
+
+        while (true) {
+            try {
+                input = Integer.parseInt(inputString);
+                if (input < 1 || input > 5) {
+                    System.out.println("Invalid choice. Please enter a number between 1 and 5.");
+                    System.out.print("> ");
+                    inputString = read.nextLine().trim();
+                    continue;
+                }
+
+                switch (input) {
+                    case 1:
+                        System.out.println("Adding a Sandwich...");
+                        loadingBar();
+                        // Call method to add a sandwich
+                        break;
+                    case 2:
+                        System.out.println("Adding a Drink...");
+                        loadingBar();
+                        // Call method to add a drink
+                        break;
+                    case 3:
+                        System.out.println("Adding Chips...");
+                        loadingBar();
+                        // Call method to add chips
+                        break;
+                    case 4:
+                        System.out.println("Checking out order...");
+                        loadingBar();
+                        // Call method to checkout order
+                        break;
+                    case 5:
+                        System.out.println("Cancelling order...");
+                        loadingBar();
+                        // Call method to cancel order
+                        break;
+                }
+                break; // Exit the loop after a valid input is processed
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.print("> ");
+                inputString = read.nextLine().trim();
+            }
+        }
+
     }
+
 
     public static void loadingBar() {
         try {
@@ -111,5 +162,4 @@ public class HomeScreen {
             System.err.println("Loading interrupted.");
         }
     }
-
 }
