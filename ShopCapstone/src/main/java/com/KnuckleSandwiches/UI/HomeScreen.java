@@ -13,7 +13,6 @@ public class HomeScreen {
         public static final String GREEN = "\u001B[32m";
         public static final String YELLOW = "\u001B[93m";
         public static final String BLUE = "\u001B[34m";
-        // ... other colors
     }
 
     public static final String GREEN = "\u001B[32m";
@@ -37,8 +36,9 @@ public class HomeScreen {
 
     static Scanner read = new Scanner(System.in);
 
+
     public static void start() {
-        System.out.print(ConsoleColors.GREEN + """
+        System.out.print(ConsoleColors.RED + """
                                         _       __     __                       \s
                                        | |     / /__  / /________  ____ ___  ___\s
                                        | | /| / / _ \\/ / ___/ __ \\/ __ `__ \\/ _ \\
@@ -48,10 +48,11 @@ public class HomeScreen {
         System.out.println("""
                 ----------------------------------------------------------------------------------------
                 |                                       Options:                                       |
-                |                                                                                      |
+                ----------------------------------------------------------------------------------------
                 |    Press Enter to Order    |    Press A for Admin Login    |     Press Q to Quit     |        \s
                 ----------------------------------------------------------------------------------------
                 """);
+
         System.out.print("> ");
         String input = read.nextLine().trim();
 
@@ -98,6 +99,7 @@ public class HomeScreen {
         }
     }
 
+
     public static void mainMenu() {
         System.out.println(( ConsoleColors.RED + art + ConsoleColors.RESET) + ConsoleColors.YELLOW + """
                                     __ __                  __   __    _                  \s
@@ -113,14 +115,13 @@ public class HomeScreen {
         System.out.println("""
                 ----------------------------------------------------------------------------------------
                 |                                       Options:                                       |
-                |                                                                                      |
-                | Press 1 to Add a Sandwich |     Press 2 to Add a Drink     |    Press 3 to Add Chips |
-                |                                                                                      |
+                ----------------------------------------------------------------------------------------
+                |  Press 1 to Add a Sandwich   |    Press 2 to Add a Drink    |  Press 3 to Add Chips  |
                 |            |   Press 4 to Checkout Order   |   Press 5 to Cancel Order   |           |
                 ----------------------------------------------------------------------------------------
                 """);
-        System.out.print("> ");
 
+        System.out.print("> ");
         String inputString = read.nextLine().trim();
         int input;
 
@@ -159,7 +160,8 @@ public class HomeScreen {
                         System.out.println("Cancelling order...");
                         loadingBar();
                         // Call method to cancel order
-                        break;
+                        start();
+                        return;
                 }
                 break; // Exit the loop after a valid input is processed
             } catch (NumberFormatException e) {
