@@ -3,8 +3,8 @@ package com.KnuckleSandwiches.FoodServices.Toppings;
 
 public class RegularTopping extends Topping {
 
-    public RegularTopping(String name) {
-        super(name);
+    public RegularTopping(String name, String category) {
+        super(name, category);
     }
 
 

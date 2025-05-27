@@ -13,8 +13,10 @@ public class Sandwich extends MenuItem {
     private boolean isToasted;
     private List<Topping> toppings = new ArrayList<>();
 
-    private static final List<String> breadTypes = List.of("White", "Wheat", "Sourdough", "Rye");
-    private static final List<String> sizes = List.of("4", "8", "12");
+
+    private static final List<String> breadTypes = List.of("Dutch Crunch", "Whole Wheat", "Sourdough", "Italian Herb", "Asiago Jalapeno", "Everything Roll", "French Baguette", "Ciabatta", "Pretzel Roll", "Pita Wrap");
+    private static final List<String> sizes = List.of("4\"", "8\"", "12\"", "24\"");
+
 
     public Sandwich(String breadType, String size) {
         if (!breadTypes.contains(breadType.toLowerCase())) {
@@ -29,35 +31,22 @@ public class Sandwich extends MenuItem {
         this.toppings = new ArrayList<>();
     }
 
-    public String getBreadType() {
-        return BreadType;
-    }
 
-    public String getSize() {
-        return Size;
-    }
+    public String getBreadType() { return BreadType; }
+    public String getSize() { return Size; }
+    public boolean isToasted() { return isToasted; }
+    public List<Topping> getToppings() { return new ArrayList<>(toppings); }
 
-    public boolean isToasted() {
-        return isToasted;
-    }
+    public void setIsToasted(boolean isToasted) { this.isToasted = isToasted; }
+    public void addTopping(Topping topping) { toppings.add(topping); }
 
-    public List<Topping> getToppings() {
-        return new ArrayList<>(toppings);
-    }
-
-    public void setIsToasted(boolean isToasted) {
-        this.isToasted = isToasted;
-    }
-
-    public void addTopping(Topping topping) {
-        toppings.add(topping);
-    }
 
     private double getBaseBreadPrice() {
         return switch (Size) {
             case "4\"" -> 5.50;
             case "8\"" -> 7.00;
             case "12\"" -> 8.50;
+            case "24\"" -> 15.50;
             default -> 0;
         };
     }
@@ -72,11 +61,13 @@ public class Sandwich extends MenuItem {
         return getPrice();
     }
 
+
     public String getToppingsDescription() {
         return toppings.stream()
                 .map(t -> t.getName() + (t.isExtra() ? " (Extra)" : ""))
                 .collect(Collectors.joining(", "));
     }
+
 
     @Override
     public String toString() {
@@ -86,4 +77,7 @@ public class Sandwich extends MenuItem {
                 isToasted ? " (Toasted)" : "",
                 toppings.isEmpty() ? "no toppings" : getToppingsDescription());
     }
+
+
+
 }

@@ -5,8 +5,8 @@ public class PremiumTopping extends Topping {
     private double extraPrice;
 
 
-    public PremiumTopping(String name, double basePrice, double extraPrice) {
-        super(name);
+    public PremiumTopping(String name, String category, double basePrice, double extraPrice) {
+        super(name, category);
         this.basePrice = basePrice;
         this.extraPrice = extraPrice;
     }
@@ -25,6 +25,7 @@ public class PremiumTopping extends Topping {
             case "4\"" -> basePrice;
             case "8\"" -> basePrice * 2;
             case "12\"" -> basePrice * 3;
+            case "24\"" -> basePrice * 3.5;
             default -> 0;
         };
 
@@ -39,6 +40,9 @@ public class PremiumTopping extends Topping {
                     break;
                 case "12\"":
                     cost += extraPrice * 3;
+                    break;
+                case "24\"":
+                    cost += extraPrice * 3.5;
                     break;
             }
         }
