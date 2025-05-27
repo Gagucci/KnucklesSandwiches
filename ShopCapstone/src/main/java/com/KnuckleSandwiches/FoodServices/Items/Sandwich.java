@@ -1,9 +1,10 @@
 package com.KnuckleSandwiches.FoodServices.Items;
 
-import com.KnuckleSandwiches.FoodServices.Toppings.Topping;
+import com.KnuckleSandwiches.FoodServices.Toppings.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Sandwich extends MenuItem {
@@ -51,6 +52,27 @@ public class Sandwich extends MenuItem {
         };
     }
 
+
+    private double getBasePriceForTopping(String category) {
+        return switch(category) {
+            case "Meats" -> 1.00;    // Base meat price for 4"
+            case "Cheeses" -> 0.75;  // Base cheese price for 4"
+            case "Specials" -> 1.50; // Base specials price for 4"
+            default -> throw new IllegalArgumentException("Unknown premium category: " + category);
+        };
+    }
+
+
+    private double getExtraPriceForTopping(String category) {
+        return switch(category) {
+            case "Meats" -> 0.50;    // Extra meat price for 4"
+            case "Cheeses" -> 0.30;  // Extra cheese price for 4"
+            case "Specials" -> 0.75; // Extra specials price for 4"
+            default -> throw new IllegalArgumentException("Unknown premium category: " + category);
+        };
+    }
+
+
     @Override
     public double calculatePrice() {
         double total = getBaseBreadPrice() + toppings.stream()
@@ -78,6 +100,30 @@ public class Sandwich extends MenuItem {
                 toppings.isEmpty() ? "no toppings" : getToppingsDescription());
     }
 
+
+    public void addPremiumTopping(String name, boolean isExtra) {
+        // Determine which premium category this topping belongs to
+        String category = ToppingCategories.premiumToppings.entrySet().stream()
+                .filter(entry -> entry.getValue().contains(name)) // Find category containing this topping
+                .map(Map.Entry::getKey) // Get the category name
+                .findFirst() // Get first matching category
+                .orElseThrow(() -> new IllegalArgumentException("Unknown premium topping: " + name));
+
+        // Create the premium topping with appropriate pricing
+        PremiumTopping topping = new PremiumTopping(
+                name,
+                category,
+                getBasePriceForTopping(category),
+                getExtraPriceForTopping(category)
+        );
+        topping.setIsExtra(isExtra);
+        toppings.add(topping);
+    }
+
+
+    public void addRegularTopping(String name, String category) {
+        toppings.add(new RegularTopping(name, category));
+    }
 
 
 }

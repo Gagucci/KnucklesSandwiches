@@ -11,9 +11,44 @@ public class ToppingCategories {
             "Specials", List.of("guacamole", "avocado", "caramelized onions", "sunny side up egg", "fried egg", "foie gras")
     );
 
+
     public static final Map<String, List<String>> regularToppings = Map.of(
             "Vegetables", List.of("lettuce", "tomato", "red onion", "cucumber", "pickles", "italian white truffle", "pickled jalapenos", "pickled banana peppers", "spinach", "arugula", "micro greens", "pickled carrot and daikon", "roasted bell peppers"),
             "Sauces", List.of( "kickin avocado lime ranch", "southpaw sriracha ranch", "roundhouse ranch", "slap ya mama sauce hot sauce", "head kick hot honey", "black belt bbq sauce","black garlic aioli", "chipotle aioli", "mayo", "kewpie mayo", "honey mustard", "dijon mustard", "red wine vinegar", "olive oil", "blast double balsamic vinaigrette", "liver shot pâté", "tahini sauce"),
             "Sides", List.of("au jus", "tomato soup", "cup of beans", "siberian sturgeon caviar", "52 oysters")
     );
+
+
+    public static List<String> getAllCategories() {
+        return List.of("Meats", "Cheeses", "Specials", "Vegetables", "Sauces", "Sides");
+    }
+
+
+    public static List<String> getAllPremiumCategories() {
+        return List.copyOf(premiumToppings.keySet());
+    }
+
+
+    public static List<String> getAllRegularCategories() {
+        return List.copyOf(regularToppings.keySet());
+    }
+
+
+    public static List<String> getToppingsByCategory(String category) {
+
+        if (premiumToppings.containsKey(category)) {
+            return premiumToppings.get(category);
+        } else if (regularToppings.containsKey(category)) {
+            return regularToppings.get(category);
+        } else {
+            throw new IllegalArgumentException("Invalid category: " + category);
+        }
+
+    }
+
+
+    public static boolean isPremiumTopping(String category) {
+        return premiumToppings.containsKey(category);
+    }
+
 }

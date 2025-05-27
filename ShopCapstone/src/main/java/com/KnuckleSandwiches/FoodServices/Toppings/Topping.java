@@ -16,7 +16,7 @@ public abstract class Topping {
     public String getCategory() { return category; }
     public boolean isExtra() { return isExtra; }
 
-    public void setExtra(boolean isExtra) { this.isExtra = isExtra; }
+    public void setIsExtra(boolean isExtra) { this.isExtra = isExtra; }
 
 
     public abstract double calculateCost(String size);
