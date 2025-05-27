@@ -1,27 +1,20 @@
 package com.KnuckleSandwiches.FoodServices.Toppings;
 
-import com.KnuckleSandwiches.FoodServices.Items.MenuItem;
-
-public abstract class Topping extends MenuItem {
+public abstract class Topping {
     private String name;
     private boolean isExtra;
 
-    public Topping(double price, String name, boolean isExtra) {
-        super(price);
+    public Topping(String name) {
         this.name = name;
-        this.isExtra = isExtra;
+        this.isExtra = false;
     }
 
-    public Topping() {
-        super();
-    }
 
     public String getName() { return name; }
     public boolean isExtra() { return isExtra; }
 
-    public void setName(String name) { this.name = name; }
     public void setExtra(boolean isExtra) { this.isExtra = isExtra; }
 
-    public abstract double calculateCost(String size);
 
+    public abstract double calculateCost(String size);
 }

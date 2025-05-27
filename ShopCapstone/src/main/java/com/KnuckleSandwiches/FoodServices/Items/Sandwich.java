@@ -2,9 +2,9 @@ package com.KnuckleSandwiches.FoodServices.Items;
 
 import com.KnuckleSandwiches.FoodServices.Toppings.Topping;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Sandwich extends MenuItem {
 
@@ -13,42 +13,70 @@ public class Sandwich extends MenuItem {
     private boolean isToasted;
     private List<Topping> toppings = new ArrayList<>();
 
-    public Sandwich(double price, String breadType, String size, boolean isToasted, List<Topping> toppings) {
-        super(price);
-        BreadType = breadType;
-        Size = size;
-        this.isToasted = isToasted;
-        this.toppings = toppings;
-    }
+    private static final List<String> breadTypes = List.of("White", "Wheat", "Sourdough", "Rye");
+    private static final List<String> sizes = List.of("4", "8", "12");
 
-    public String getBreadType() { return BreadType; }
-    public String getSize() { return Size; }
-    public boolean isToasted() { return isToasted; }
-    public List<Topping> getToppings() { return toppings; }
-
-    public void setBreadType(String breadType) { BreadType = breadType; }
-    public void setSize(String size) { Size = size; }
-    public void setToasted(boolean toasted) { isToasted = toasted; }
-    public void setToppings(List<Topping> toppings) {
-        if (toppings == null || toppings.isEmpty()) {
-            throw new IllegalArgumentException("Toppings cannot be null or empty");
+    public Sandwich(String breadType, String size) {
+        if (!breadTypes.contains(breadType.toLowerCase())) {
+            throw new IllegalArgumentException("Invalid bread type. Choose from: " + breadTypes);
         }
-        this.toppings = toppings;
+        if (!sizes.contains(size)) {
+            throw new IllegalArgumentException("Invalid size. Choose from: " + sizes);
+        }
+        this.BreadType = breadType;
+        this.Size = size;
+        this.isToasted = false; // Default value
+        this.toppings = new ArrayList<>();
     }
 
-
-    @Override
-    public double getPrice() {
-        return super.getPrice();
+    public String getBreadType() {
+        return BreadType;
     }
 
+    public String getSize() {
+        return Size;
+    }
+
+    public boolean isToasted() {
+        return isToasted;
+    }
+
+    public List<Topping> getToppings() {
+        return new ArrayList<>(toppings);
+    }
+
+    public void setIsToasted(boolean isToasted) {
+        this.isToasted = isToasted;
+    }
+
+    public void addTopping(Topping topping) {
+        toppings.add(topping);
+    }
+
+    private double getBaseBreadPrice() {
+        return switch (Size) {
+            case "4\"" -> 5.50;
+            case "8\"" -> 7.00;
+            case "12\"" -> 8.50;
+            default -> 0;
+        };
+    }
 
     @Override
     public double calculatePrice() {
-        double totalPrice = getPrice();
-        for (Topping topping : toppings) {
-            totalPrice += topping.calculatePrice();
-        }
-        return totalPrice;
+        double total = getBaseBreadPrice() + toppings.stream()
+                .mapToDouble(t -> t.calculateCost(Size))
+                .sum();
+
+        setPrice(total);
+        return getPrice();
     }
+
+    public String getToppingsDescription() {
+        return toppings.stream()
+                .map(t -> t.getName() + (t.isExtra() ? " (Extra)" : ""))
+                .collect(Collectors.joining(", "));
+    }
+
+
 }

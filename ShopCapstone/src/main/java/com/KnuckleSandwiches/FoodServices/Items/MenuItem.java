@@ -13,13 +13,8 @@ public abstract class MenuItem implements Priceable {
     }
 
     public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public void setPrice(double price) {
-        if (price < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
-        }
-        this.price = price;
-    }
-
+    @Override
     public abstract double calculatePrice();
 }

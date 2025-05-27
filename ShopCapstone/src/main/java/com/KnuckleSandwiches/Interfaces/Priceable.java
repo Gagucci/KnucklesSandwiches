@@ -7,5 +7,5 @@ public interface Priceable {
      * @return The price of the item as a double.
      */
 
-    double getPrice();
+    double calculatePrice();
 }
