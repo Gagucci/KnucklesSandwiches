@@ -78,5 +78,12 @@ public class Sandwich extends MenuItem {
                 .collect(Collectors.joining(", "));
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("%s %s Sandwich%s with %s",
+                Size,
+                BreadType,
+                isToasted ? " (Toasted)" : "",
+                toppings.isEmpty() ? "no toppings" : getToppingsDescription());
+    }
 }
