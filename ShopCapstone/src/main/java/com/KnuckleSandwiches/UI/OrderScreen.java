@@ -46,6 +46,10 @@ public class OrderScreen {
                         HomeScreen.loadingBar();
                         HomeScreen.mainMenu();
                         return; // Exit the sandwich menu
+                    default:
+                        System.out.println("Invalid input. Please enter a valid option.");
+                        System.out.print("> ");
+                        inputString = HomeScreen.read.nextLine().trim();
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");

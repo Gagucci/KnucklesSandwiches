@@ -20,7 +20,7 @@ public class HomeScreen {
 
 
     public static void start() {
-        System.out.println(welcome);
+        System.out.print(welcome);
         System.out.print("""
                 ----------------------------------------------------------------------------------------
                 |                                       Options:                                       |

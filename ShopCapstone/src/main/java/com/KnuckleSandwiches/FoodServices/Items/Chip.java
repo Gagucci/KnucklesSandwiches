@@ -1,24 +1,37 @@
 package com.KnuckleSandwiches.FoodServices.Items;
 
+import java.util.List;
+
 public class Chip extends MenuItem {
 
-    private String type;
+    private final String type;
+    private static final double basePrice = 1.50;
+    private static final List<String> validTypes = List.of("Potato", "BBQ", "Salt & Vinegar", "Veggie", "Tortilla", "cheese");
+
+    public String getType() { return type; }
 
     public Chip(double price, String type) {
-        super(price);
+        if (!validTypes.contains(type)) {
+            throw new IllegalArgumentException("Invalid chip type: " + type);
+        }
         this.type = type;
     }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+
+    public static List<String> getValidTypes() {
+        return validTypes;
+    }
+
 
     @Override
-    public double getPrice() {
-        return super.getPrice();
+    public String toString() {
+        return type + " Chips";
     }
+
 
     @Override
     public double calculatePrice() {
-        return getPrice();
+        return basePrice;
     }
+
 }
