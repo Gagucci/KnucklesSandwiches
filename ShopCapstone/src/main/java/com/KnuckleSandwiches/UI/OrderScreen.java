@@ -1,17 +1,12 @@
 package com.KnuckleSandwiches.UI;
 
 import com.KnuckleSandwiches.FoodServices.Items.Sandwich;
-import com.KnuckleSandwiches.FoodServices.Order;
 import com.KnuckleSandwiches.FoodServices.Toppings.ToppingCategories;
-import com.KnuckleSandwiches.Interfaces.Priceable;
 import com.KnuckleSandwiches.Services.ReceiptServices;
-
 import java.util.List;
-
 import static com.KnuckleSandwiches.UI.AsciiArts.*;
 
 public class OrderScreen {
-
 
     private static final ReceiptServices receiptService = new ReceiptServices();
 
@@ -125,6 +120,16 @@ public class OrderScreen {
         }
     }
 
+    private static boolean promptYesNo(String message) {
+        while (true) {
+            System.out.print(message);
+            String input = HomeScreen.read.nextLine().trim().toLowerCase();
+            if (input.equals("yes")) return true;
+            if (input.equals("no")) return false;
+            System.out.println("Please answer 'yes' or 'no'");
+        }
+    }
+
 
     public static void addCustomSandwich() {
         System.out.println("========================================================================================");
@@ -134,6 +139,23 @@ public class OrderScreen {
         System.out.println("========================================================================================");
 
         String breadChoice = prompt("Please enter your choice of bread: ", Sandwich.breadTypes);
+
+        System.out.println("========================================================================================");
+        System.out.printf("|%80s|\n", "Available Sizes:");
+        System.out.println("----------------------------------------------------------------------------------------");
+        Sandwich.sizes.forEach(size -> System.out.printf("| %-78s |\n", size));
+        System.out.println("========================================================================================");
+
+        String sizeChoice = prompt("Please enter your choice of size: ", Sandwich.sizes);
+
+        Sandwich sandwich = new Sandwich(breadChoice, sizeChoice);
+        addToppings(sandwich);
+        sandwich.setIsToasted(promptYesNo("\nWould you like your sandwich toasted? (yes/no): "));
+
+        HomeScreen.currentOrder.addItem(sandwich);
+        System.out.println("========================================================================================");
+        System.out.printf("|%80s|\n", String.format("Added %s %s Sandwich to your order", sizeChoice, breadChoice));
+        System.out.println("========================================================================================");
 
 
     }
@@ -174,3 +196,4 @@ public class OrderScreen {
 
     }
 }
+
