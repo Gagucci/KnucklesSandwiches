@@ -70,7 +70,7 @@ public class OrderScreen {
                     case 1:
                         System.out.println("Adding a Custom Sandwich...");
                         HomeScreen.loadingBar();
-                        // Here you would call the method to add a custom sandwich
+                        addCustomSandwich();
                         break;
                     case 2:
                         System.out.println("Adding a Signature Sandwich...");
@@ -97,7 +97,8 @@ public class OrderScreen {
 
     private static String prompt(String message, List<String> validOptions) {
         while (true) {
-            System.out.print(message);
+            System.out.println(message);
+            System.out.print("> ");
             String input = HomeScreen.read.nextLine().trim();
 
             // Case-insensitive comparison
@@ -161,20 +162,45 @@ public class OrderScreen {
     }
 
     private static void addToppings(Sandwich sandwich) {
-        System.out.println("========================================================================================");
-        System.out.printf("|%80s|\n", "Available Toppings:");
-        System.out.println("----------------------------------------------------------------------------------------");
-        ToppingCategories.premiumToppings.forEach(category -> {
 
-            System.out.printf("| %-78s |\n", category.getCategoryName() + ":");
-            category.getToppings().forEach(topping ->
-                    System.out.printf("| %-78s |\n", String.format("- %s: $%.2f%s",
-                            topping.getName(), topping.calculatePrice(),
-                            topping.isExtra() ? " (Extra)" : ""))
-            );
-        });
-        System.out.println("========================================================================================");
+        while (true) {
+            System.out.println("========================================================================================");
+            System.out.printf("|%80s|\n", "Toppings Categories:");
+            System.out.println("----------------------------------------------------------------------------------------");
 
+            ToppingCategories.getAllCategories().forEach(cat -> System.out.printf("- %s%s%n", cat, ToppingCategories.isPremium(cat) ? " (Premium)" : ""));
+
+            String categoryChoice = prompt("Please enter a topping category (or type 'done' to finish): ", ToppingCategories.getAllCategories());
+
+            if (categoryChoice.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            System.out.println("========================================================================================");
+            System.out.printf("|%80s|\n", String.format("Available %s toppings:", categoryChoice));
+            System.out.println("----------------------------------------------------------------------------------------");
+
+            List<String> toppings = ToppingCategories.getToppingsByCategory(categoryChoice);
+            toppings.forEach(t -> System.out.printf("| %-78s |\n", t));
+            System.out.println("========================================================================================");
+
+            String toppingName = prompt("Select topping: ", toppings);
+
+            if (ToppingCategories.isPremium(categoryChoice)) {
+                boolean isExtra = promptYesNo("Add extra portion? (yes/no): ");
+                sandwich.addPremiumTopping(toppingName, isExtra);
+                System.out.printf("| %-78s |\n", String.format("Added %s %s%s",
+                        categoryChoice.toLowerCase(),
+                        toppingName,
+                        isExtra ? " (Extra)" : ""));
+            } else {
+                sandwich.addRegularTopping(toppingName, categoryChoice);
+                System.out.printf("| %-78s |\n", String.format("Added %s", toppingName));
+            }
+            System.out.println("========================================================================================");
+
+
+        }
     }
 
     public static void addSignatureSandwich() {

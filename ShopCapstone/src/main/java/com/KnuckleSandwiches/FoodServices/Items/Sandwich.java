@@ -24,11 +24,11 @@ public class Sandwich extends MenuItem {
 
 
     public Sandwich(String breadType, String size) {
-        if (!breadTypes.contains(breadType.toLowerCase())) {
-            throw new IllegalArgumentException("Invalid bread type. Choose from: " + breadTypes);
+        if (!breadTypes.contains(breadType)) {
+            throw new IllegalArgumentException("Invalid bread type: " + breadType + ". Choose from: " + breadTypes);
         }
         if (!sizes.contains(size)) {
-            throw new IllegalArgumentException("Invalid size. Choose from: " + sizes);
+            throw new IllegalArgumentException("Invalid size: " + size + ". Choose from: " + sizes);
         }
         this.BreadType = breadType;
         this.Size = size;

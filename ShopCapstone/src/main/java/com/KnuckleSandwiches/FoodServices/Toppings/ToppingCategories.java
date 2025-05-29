@@ -5,6 +5,16 @@ import java.util.Map;
 
 public class ToppingCategories {
 
+    /**
+     * Checks if the given category is a premium topping category.
+     *
+     * @param category the category to check
+     * @return true if the category is a premium topping, false otherwise
+     */
+    public static boolean isPremium(String category) {
+        return premiumToppings.containsKey(category);
+    }
+
     public static final Map<String, List<String>> premiumToppings = Map.of(
             "Meats", List.of("40 days dry aged 72 oz a5 wagyu tomahawk steak", "steak", "bacon", "pastrami", "roast beef", "beef patty", "al pastor", "turkey", "bbq pork", "salami", "smoked salmon", "prosciutto", "chicken breast", "capicola", "pepperoni", "pulled pork", "beef brisket", "meatballs", "falafel"),
             "Cheeses", List.of("cheddar", "swiss", "provolone", "pepper jack", "mozzarella", "burrata", "feta", "raclette", "brie", "cream cheese", "queso fresco"),
