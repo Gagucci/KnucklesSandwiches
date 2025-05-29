@@ -74,6 +74,7 @@ public class HomeScreen {
     public static void mainMenu() {
 
         System.out.println(logo);
+        displayCurrentOrder();
         System.out.print("""
                 ========================================================================================
                 |                                       Options:                                       |

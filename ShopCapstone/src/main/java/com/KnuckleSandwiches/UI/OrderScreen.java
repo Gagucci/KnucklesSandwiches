@@ -2,8 +2,11 @@ package com.KnuckleSandwiches.UI;
 
 import com.KnuckleSandwiches.FoodServices.Items.Sandwich;
 import com.KnuckleSandwiches.FoodServices.Order;
+import com.KnuckleSandwiches.FoodServices.Toppings.ToppingCategories;
 import com.KnuckleSandwiches.Interfaces.Priceable;
 import com.KnuckleSandwiches.Services.ReceiptServices;
+
+import java.util.List;
 
 import static com.KnuckleSandwiches.UI.AsciiArts.*;
 
@@ -19,23 +22,23 @@ public class OrderScreen {
         }
 
         System.out.println("========================================================================================");
-        System.out.println("|                                 Your Order:                                          |");
+        System.out.printf("|%80s|\n", "Your Order:");
         System.out.println("----------------------------------------------------------------------------------------");
 
         HomeScreen.currentOrder.getItems().forEach(item -> {
-            System.out.printf("| %s: $%.2f |\n", item.toString(), item.calculatePrice());
+            System.out.printf("| %-78s |\n", String.format("%s: $%.2f", item.toString(), item.calculatePrice()));
             if (item instanceof Sandwich) {
                 Sandwich s = (Sandwich) item;
-                System.out.printf("|   Bread: %s %s%s%s",
+                System.out.printf("| %-78s |\n", String.format("Bread: %s %s%s",
                         s.getSize(), s.getBreadType(),
-                        s.isToasted() ? " (Toasted)" : "");
+                        s.isToasted() ? " (Toasted)" : ""));
                 s.getToppings().forEach(t ->
-                        System.out.printf(" |   - %s%s", t.getName(),
-                                t.isExtra() ? " (Extra)" : "")
+                        System.out.printf("| %-78s |\n", String.format("- %s%s", t.getName(),
+                                t.isExtra() ? " (Extra)" : ""))
                 );
             }
         });
-        System.out.printf("| Total: $%.2f |\n", HomeScreen.currentOrder.calculateTotal());
+        System.out.printf("| %-78s |\n", String.format("Total: $%.2f", HomeScreen.currentOrder.calculateTotal()));
         System.out.println("========================================================================================");
 
     }
@@ -97,28 +100,77 @@ public class OrderScreen {
         }
     }
 
+    private static String prompt(String message, List<String> validOptions) {
+        while (true) {
+            System.out.print(message);
+            String input = HomeScreen.read.nextLine().trim();
 
-    public static void addCustomSandwich(){
+            // Case-insensitive comparison
+            for (String option : validOptions) {
+                if (option.equalsIgnoreCase(input)) {
+                    return option; // Return the properly cased version
+                }
+            }
+
+            // For numeric menu options (like "1", "2")
+            try {
+                int num = Integer.parseInt(input);
+                if (num > 0 && num <= validOptions.size()) {
+                    return validOptions.get(num - 1);
+                }
+            } catch (NumberFormatException ignored) {
+            }
+
+            System.out.println("Invalid option. Please choose from: " + validOptions);
+        }
+    }
+
+
+    public static void addCustomSandwich() {
+        System.out.println("========================================================================================");
+        System.out.printf("|%80s|\n", "Available Bread Types:");
+        System.out.println("----------------------------------------------------------------------------------------");
+        Sandwich.breadTypes.forEach(bread -> System.out.printf("| %-78s |\n", bread));
+        System.out.println("========================================================================================");
+
+        String breadChoice = prompt("Please enter your choice of bread: ", Sandwich.breadTypes);
+
+
+    }
+
+    private static void addToppings(Sandwich sandwich) {
+        System.out.println("========================================================================================");
+        System.out.printf("|%80s|\n", "Available Toppings:");
+        System.out.println("----------------------------------------------------------------------------------------");
+        ToppingCategories.premiumToppings.forEach(category -> {
+
+            System.out.printf("| %-78s |\n", category.getCategoryName() + ":");
+            category.getToppings().forEach(topping ->
+                    System.out.printf("| %-78s |\n", String.format("- %s: $%.2f%s",
+                            topping.getName(), topping.calculatePrice(),
+                            topping.isExtra() ? " (Extra)" : ""))
+            );
+        });
+        System.out.println("========================================================================================");
+
+    }
+
+    public static void addSignatureSandwich() {
 
     }
 
 
-    public static void addSignatureSandwich(){
+    public static void addDrink() {
 
     }
 
 
-    public static void addDrink(){
+    public static void addChips() {
 
     }
 
 
-    public static void addChips(){
-
-    }
-
-
-    public static void checkoutOrder(){
+    public static void checkoutOrder() {
 
     }
 }

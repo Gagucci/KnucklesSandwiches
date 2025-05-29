@@ -15,8 +15,12 @@ public class Sandwich extends MenuItem {
     private List<Topping> toppings = new ArrayList<>();
 
 
-    private static final List<String> breadTypes = List.of("Dutch Crunch", "Whole Wheat", "Sourdough", "Italian Herb", "Asiago Jalapeno", "Everything Roll", "French Baguette", "Ciabatta", "Pretzel Roll", "Pita Wrap");
-    private static final List<String> sizes = List.of("4\"", "8\"", "12\"", "24\"");
+    public static final List<String> breadTypes = List.of(
+            "Dutch Crunch", "Whole Wheat", "Sourdough", "Italian Herb", "Asiago Jalapeno", "Everything Roll", "French Baguette", "Ciabatta", "Pretzel Roll", "Pita Wrap"
+    );
+    public static final List<String> sizes = List.of(
+            "4\"", "8\"", "12\"", "24\""
+    );
 
 
     public Sandwich(String breadType, String size) {
