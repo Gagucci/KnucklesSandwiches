@@ -8,12 +8,12 @@ public class OrderScreen {
 
         System.out.println(sandwich);
         System.out.print("""
-                ----------------------------------------------------------------------------------------
+                ========================================================================================
                 |                                       Options:                                       |
                 ----------------------------------------------------------------------------------------
                 |    Press 1 to Add a Custom Sandwich      |     Press 2 to Add a Signature Sandwich   |
                 |                       |     Press 3 to Return to Menu     |                          |
-                ----------------------------------------------------------------------------------------
+                ========================================================================================
                 """);
 
         System.out.print("> ");
@@ -22,6 +22,7 @@ public class OrderScreen {
 
         while (true) {
             try {
+
                 input = Integer.parseInt(inputString);
                 if (input < 1 || input > 3) {
                     System.out.println("Invalid choice. Please enter a number between 1 and 2.");

@@ -24,34 +24,35 @@ public class ReceiptServices {
      */
 
 
-public <T extends Priceable> String generateReceipt(Order<T> order) {
-     createReceiptsDirectory();
-     String filename = generateReceiptFilename(order.getOrderDate());
-     File receiptFile = new File(receipts, filename);
+    public <T extends Priceable> String generateReceipt(Order<T> order) {
+        createReceiptsDirectory();
+        String filename = generateReceiptFilename(order.getOrderDate());
+        File receiptFile = new File(receipts, filename);
 
-     try (BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile))) {
-         // Write receipt header
-         writer.write(generateReceiptHeader(order.getOrderDate()));
-         writer.newLine();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile))) {
+            // Write receipt header
+            writer.write(generateReceiptHeader(order.getOrderDate()));
+            writer.newLine();
 
-         // Write order items
-         writer.write(generateItemsSection(order.getItems()));
-         writer.newLine();
+            // Write order items
+            writer.write(generateItemsSection(order.getItems()));
+            writer.newLine();
 
-         // Write receipt footer
-         writer.write(generateReceiptFooter(order.calculateTotal()));
-         writer.newLine();
+            // Write receipt footer
+            writer.write(generateReceiptFooter(order.calculateTotal()));
+            writer.newLine();
 
-         return receiptFile.getAbsolutePath();
-     } catch (IOException e) {
-         e.printStackTrace();
-         return null; // Return null or handle the error as needed
-     }
- }
+            return receiptFile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Return null or handle the error as needed
+        }
+    }
 
 
     /**
      * Displays the receipt to console (for testing/debugging)
+     *
      * @param order The order to display
      */
     public <T extends Priceable> void displayReceipt(Order<T> order) {
@@ -76,8 +77,8 @@ public <T extends Priceable> String generateReceipt(Order<T> order) {
 
     private String generateReceiptHeader(LocalDateTime orderDate) {
         return String.format(
-                "========================================\n" +
-                        "            DELI-cious Sandwich Shop    \n" +
+                        "========================================\n" +
+                        "            Knuckle's Sandwiches        \n" +
                         "            Order Receipt               \n" +
                         "----------------------------------------\n" +
                         "  Order Date: %s\n" +
@@ -115,10 +116,10 @@ public <T extends Priceable> String generateReceipt(Order<T> order) {
         return sb.toString();
     }
 
-    
+
     private String generateReceiptFooter(double total) {
         return String.format(
-                "  SUBTOTAL:                     $%.2f\n" +
+                        "  SUBTOTAL:                     $%.2f\n" +
                         "  TAX (7%%):                     $%.2f\n" +
                         "  TOTAL:                        $%.2f\n" +
                         "----------------------------------------\n" +
