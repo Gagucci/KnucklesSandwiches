@@ -19,6 +19,9 @@ public class Order<T extends Priceable> {
         this.items = new ArrayList<>();
     }
 
+    public LocalDateTime getOrderDate() { return orderDate; }
+    public List<T> getItems() { return new ArrayList<>(items); }
+
     /**
      * Adds an item to the order
      *
@@ -34,7 +37,6 @@ public class Order<T extends Priceable> {
      *
      * @return total price
      */
-
     public double calculateTotal() {
         return items.stream()
                 .mapToDouble(Priceable::calculatePrice)
@@ -46,12 +48,12 @@ public class Order<T extends Priceable> {
      *
      * @return formatted order details
      */
-
     public String getOrderDetails() {
         String itemsDetails = items.stream()
                 .map(item -> {
                     String details = "- " + item.toString() +
                             ": $" + String.format("%.2f", item.calculatePrice());
+
                     // Special handling for sandwiches
                     if (item instanceof Sandwich) {
                         Sandwich sandwich = (Sandwich) item;
@@ -60,6 +62,7 @@ public class Order<T extends Priceable> {
                                         (t.isExtra() ? " (Extra)" : ""))
                                 .collect(Collectors.joining("\n"));
                     }
+
                     return details;
                 })
                 .collect(Collectors.joining("\n"));
@@ -73,21 +76,11 @@ public class Order<T extends Priceable> {
     }
 
 
-    public List<T> getItems() {
-        return new ArrayList<>(items);
-    }
-
-
-    public LocalDateTime getOrderDate() {
-        return orderDate;
-    }
-
     /**
      * Gets a simple list of items for display
      *
      * @return formatted item list
      */
-
     public String getSimpleOrderSummary() {
         return items.stream()
                 .map(item -> "- " + item.toString() +

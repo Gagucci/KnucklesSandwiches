@@ -1,8 +1,45 @@
 package com.KnuckleSandwiches.UI;
 
+import com.KnuckleSandwiches.FoodServices.Items.Sandwich;
+import com.KnuckleSandwiches.FoodServices.Order;
+import com.KnuckleSandwiches.Interfaces.Priceable;
+import com.KnuckleSandwiches.Services.ReceiptServices;
+
 import static com.KnuckleSandwiches.UI.AsciiArts.*;
 
 public class OrderScreen {
+
+
+    private static final ReceiptServices receiptService = new ReceiptServices();
+
+    public static void displayCurrentOrder() {
+        if (HomeScreen.currentOrder.getItems().isEmpty()) {
+            System.out.println("\nYour order is currently empty.");
+            return;
+        }
+
+        System.out.println("========================================================================================");
+        System.out.println("|                                 Your Order:                                          |");
+        System.out.println("----------------------------------------------------------------------------------------");
+
+        HomeScreen.currentOrder.getItems().forEach(item -> {
+            System.out.printf("| %s: $%.2f |\n", item.toString(), item.calculatePrice());
+            if (item instanceof Sandwich) {
+                Sandwich s = (Sandwich) item;
+                System.out.printf("|   Bread: %s %s%s%s",
+                        s.getSize(), s.getBreadType(),
+                        s.isToasted() ? " (Toasted)" : "");
+                s.getToppings().forEach(t ->
+                        System.out.printf(" |   - %s%s", t.getName(),
+                                t.isExtra() ? " (Extra)" : "")
+                );
+            }
+        });
+        System.out.printf("| Total: $%.2f |\n", HomeScreen.currentOrder.calculateTotal());
+        System.out.println("========================================================================================");
+
+    }
+
 
     public static void sandwichMenu() {
 

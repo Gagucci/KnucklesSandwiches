@@ -1,5 +1,8 @@
 package com.KnuckleSandwiches.UI;
 
+import com.KnuckleSandwiches.FoodServices.Order;
+import com.KnuckleSandwiches.Interfaces.Priceable;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -9,6 +12,7 @@ import static com.KnuckleSandwiches.UI.OrderScreen.*;
 
 public class HomeScreen {
 
+    public static Order<Priceable> currentOrder = new Order<>();
     static Scanner read = new Scanner(System.in);
     static class ConsoleColors {
         public static final String RESET = "\u001B[0m";
