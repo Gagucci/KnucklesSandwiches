@@ -41,9 +41,7 @@
 
 ## Project Description:
 
-Knuckles Sandwiches is a web application that allows users to browse, customize, and order delicious sandwiches online. Inspired by the iconic character Knuckles from Sonic the Hedgehog, this app combines fun theming with practical food ordering functionality.
-
-
+Knuckles Sandwiches is a Java application that allows users to browse, customize, and order delicious sandwiches through a CLI app. Built with Java, it demonstrates clean code practices, user input validation, and object-oriented design. Perfect for learning core Java concepts through a fun, food-ordering system!
 
 
 
@@ -131,6 +129,7 @@ cd KnucklesSandwiches
 - Browse the menu or create a custom sandwich
 - Add items to your cart
 - Proceed to checkout
+- Print your receipt
 
 
 ## License:
