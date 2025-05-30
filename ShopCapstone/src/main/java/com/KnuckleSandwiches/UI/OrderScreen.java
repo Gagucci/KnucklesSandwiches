@@ -322,15 +322,13 @@ public class OrderScreen {
         }
 
         String receiptFile = receiptService.generateReceipt(HomeScreen.currentOrder);
-
-
         System.out.println("\n========================================================================================");
-        System.out.printf("|%-85s|\n", "                       Your order has been checked out successfully.");
-        System.out.printf("|%-85s|\n", String.format("                            Receipt saved to: %s", receiptFile));
+        System.out.printf("| %-85s|\n", "                     Your order has been checked out successfully.");
+        System.out.printf("| %-85s|\n", String.format("                         Receipt saved to: %s", receiptFile));
         System.out.println("========================================================================================\n");
         receiptService.displayReceipt(HomeScreen.currentOrder);
 
-        HomeScreen.currentOrder = new Order<>(); // Reset the current order after checkout
+        HomeScreen.currentOrder = new Order<>();// Reset the current order after checkout
     }
 }
 
