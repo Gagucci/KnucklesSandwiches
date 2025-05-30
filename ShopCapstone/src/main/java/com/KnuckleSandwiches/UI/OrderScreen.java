@@ -19,16 +19,19 @@ public class OrderScreen {
         }
 
         System.out.println("========================================================================================");
-        System.out.printf("|%-86s|\n", "                          Your Order:");
+        System.out.printf("|%-86s|\n", "                                       Your Order:");
         System.out.println("----------------------------------------------------------------------------------------");
 
         HomeScreen.currentOrder.getItems().forEach(item -> {
             if (!(item instanceof Sandwich)) {
+                System.out.printf("|%-86s|\n","");
                 System.out.printf("| %-85s|\n", String.format("%s: $%.2f", item.toString(), item.calculatePrice()));
+                System.out.printf("|%-86s|\n","");
             }
 
             if (item instanceof Sandwich) {
                 Sandwich s = (Sandwich) item;
+                System.out.printf("|%-86s|\n","");
                 System.out.printf("| %-85s|\n", String.format("Bread: %s %s%s",
                         s.getSize(), s.getBreadType(),
                         s.isToasted() ? " (Toasted)" : ""));
@@ -36,6 +39,7 @@ public class OrderScreen {
                         System.out.printf("| %-85s|\n", String.format("- %s%s", t.getName(),
                                 t.isExtra() ? " (Extra)" : ""))
                 );
+                System.out.printf("|%-86s|\n","");
             }
         });
         System.out.printf("|%85s |\n", String.format("Total: $%.2f", HomeScreen.currentOrder.calculateTotal()));
@@ -154,7 +158,7 @@ public class OrderScreen {
         String breadChoice = prompt("Please enter your choice of bread: ", Sandwich.breadTypes);
 
         System.out.println("\n========================================================================================");
-        System.out.printf("| %-85s|\n", "Available Sizes:");
+        System.out.printf("| %-85s|\n", "                                 Available Sizes:");
         System.out.println("----------------------------------------------------------------------------------------");
 
         for (int index = 0; index < Sandwich.sizes.size(); index++) {
@@ -182,7 +186,7 @@ public class OrderScreen {
 
         while (true) {
             System.out.println("\n========================================================================================");
-            System.out.printf("| %-85s|\n", "Toppings Categories:");
+            System.out.printf("| %-85s|\n", "                              Toppings Categories:");
             System.out.println("----------------------------------------------------------------------------------------");
 
             List<String> categories = ToppingCategories.getAllCategories();
@@ -200,7 +204,7 @@ public class OrderScreen {
             }
 
             System.out.println("\n========================================================================================");
-            System.out.printf("| %-85s|\n", String.format("Available %s toppings:", categoryChoice));
+            System.out.printf("| %-85s|\n", String.format("                            Available %s toppings:", categoryChoice));
             System.out.println("----------------------------------------------------------------------------------------");
 
             List<String> toppings = ToppingCategories.getToppingsByCategory(categoryChoice);
@@ -278,6 +282,24 @@ public class OrderScreen {
 
 
     public static void addChips() {
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", "                              Available Chips Flavors:");
+        System.out.println("----------------------------------------------------------------------------------------");
+
+        for (int index = 0; index < Chip.validTypes.size(); index++) {
+            String topping = Chip.validTypes.get(index);
+            System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, topping));
+        }
+
+        System.out.println("========================================================================================\n");
+        String flavorChoice = prompt("Select a Flavor: ", Chip.validTypes);
+
+        Chip chips = new Chip( Chip.getBasePrice(), flavorChoice);
+        HomeScreen.currentOrder.addItem(chips);
+
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", String.format("Added %s Chips to your order", flavorChoice));
+        System.out.println("========================================================================================\n");
 
     }
 

@@ -6,7 +6,7 @@ public class Chip extends MenuItem {
 
     private final String type;
     private static final double basePrice = 1.50;
-    private static final List<String> validTypes = List.of("Potato", "BBQ", "Salt & Vinegar", "Veggie", "Tortilla", "cheese");
+    public static final List<String> validTypes = List.of("Potato", "BBQ", "Salt & Vinegar", "Veggie", "Tortilla", "cheese");
 
     public String getType() { return type; }
 
@@ -20,6 +20,10 @@ public class Chip extends MenuItem {
 
     public static List<String> getValidTypes() {
         return validTypes;
+    }
+
+    public static double getBasePrice() {
+        return basePrice;
     }
 
 

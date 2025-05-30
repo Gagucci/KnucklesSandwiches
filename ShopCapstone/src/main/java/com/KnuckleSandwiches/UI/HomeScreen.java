@@ -78,7 +78,7 @@ public class HomeScreen {
         displayCurrentOrder();
         System.out.print("""
                 ========================================================================================
-                |                                       Options:                                       |
+                |                                         Options:                                     |
                 ----------------------------------------------------------------------------------------
                 |  Press 1 to Add a Sandwich   |    Press 2 to Add a Drink    |  Press 3 to Add Chips  |
                 |            |   Press 4 to Checkout Order   |   Press 5 to Cancel Order   |           |
