@@ -1,4 +1,4 @@
-<h1 align="center">Knuckles Sandwiches 🥪</h1>
+<h1 align="center">👊🏽 Knuckles Sandwiches 🥪</h1>
 
 <div align="center">
   <img src="./images/logo.png">
