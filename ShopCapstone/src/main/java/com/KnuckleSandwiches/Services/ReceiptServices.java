@@ -16,14 +16,6 @@ public class ReceiptServices {
     private static final DateTimeFormatter fileNameFormatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
     private static final DateTimeFormatter receiptDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
 
-
-    /**
-     * Generates a receipt file using BufferedWriter
-     *
-     * @param order The order to generate receipt for
-     * @return The path to the generated receipt file
-     */
-
     private String generateReceiptFilename(LocalDateTime orderDate) {
         return orderDate.format(fileNameFormatter) + ".txt";
     }
@@ -33,7 +25,6 @@ public class ReceiptServices {
         String filename = generateReceiptFilename(order.getOrderDate());
         File receiptFile = new File(receipts, filename);
 
-        // Use FileOutputStream to get access to FileDescriptor.sync()
         try (FileOutputStream fos = new FileOutputStream(receiptFile);
              OutputStreamWriter osw = new OutputStreamWriter(fos);
              BufferedWriter writer = new BufferedWriter(osw)) {
@@ -47,9 +38,7 @@ public class ReceiptServices {
             writer.write(generateReceiptFooter(order.calculateTotal()));
             writer.newLine();
 
-            // Ensure all data is written to disk
             fos.getFD().sync();
-            // Close the writer to flush and release resources
             writer.flush();
 
             return receiptFile.getName();
@@ -59,18 +48,11 @@ public class ReceiptServices {
         }
     }
 
-
-    /**
-     * Displays the receipt to console (for testing/debugging)
-     *
-     * @param order The order to display
-     */
     public <T extends Priceable> void displayReceipt(Order<T> order) {
         System.out.println(generateReceiptHeader(order.getOrderDate()));
         System.out.println(generateItemsSection(order.getItems()));
         System.out.println(generateReceiptFooter(order.calculateTotal()));
     }
-
 
     private void createReceiptsDirectory() {
         File dir = new File(receipts);
@@ -79,10 +61,9 @@ public class ReceiptServices {
         }
     }
 
-
     private String generateReceiptHeader(LocalDateTime orderDate) {
         return String.format(
-                        "========================================================================================\n" +
+                "========================================================================================\n" +
                         "                                  Knuckle's Sandwiches                                  \n" +
                         "                                     Order Receipt                                      \n" +
                         "----------------------------------------------------------------------------------------\n" +
@@ -92,7 +73,6 @@ public class ReceiptServices {
         );
     }
 
-
     private <T extends Priceable> String generateItemsSection(List<T> items) {
         StringBuilder sb = new StringBuilder();
         sb.append(
@@ -101,50 +81,50 @@ public class ReceiptServices {
         );
 
         if (items.isEmpty()) {
-            sb.append("%-85s    No items in order\n");
+            sb.append("    No items in order\n");
         } else {
-
             items.forEach(item -> {
-                // Add item line
-                if (!(item instanceof Sandwich))  {
-                    sb.append(String.format("    %-70s $%10.2f\n", item.toString(), item.calculatePrice()));
-                }
+                if (item instanceof Sandwich) {
+                    Sandwich sandwich = (Sandwich) item;
+                    String sandwichTitle = (sandwich instanceof SignatureSandwich)
+                            ? ((SignatureSandwich) sandwich).getSignatureName()
+                            : "Custom Sandwich";
 
-               // Add topping details if this is a sandwich
-                    if (item instanceof Sandwich) {
-                        Sandwich sandwich = (Sandwich) item;
-                        String sandwichTitle = sandwich.isCustom()
-                                ? "Custom Sandwich"
-                                : ((SignatureSandwich) sandwich).getSignatureName();
+                    // Format sandwich title and price
+                    sb.append(String.format("    %-60s $%8.2f\n", sandwichTitle, sandwich.calculatePrice()));
 
-                        sb.append(String.format("    %-70s $%10.2f\n", sandwichTitle, sandwich.calculatePrice()));
-
-                        sandwich.getToppings().forEach(topping -> sb.append(String.format("      %-65s%-15s\n",
-                                topping.getName(),
-                                topping.isExtra() ? " (Extra)" : "")));
+                    // Add toppings
+                    if (sandwich.getToppings() != null) {
+                        sandwich.getToppings().forEach(topping ->
+                                sb.append(String.format("        %-56s%s\n",
+                                        topping.getName(),
+                                        topping.isExtra() ? "(Extra)" : ""))
+                        );
                     }
+                } else {
+                    // Format other items
+                    sb.append(String.format("    %-60s $%8.2f\n", item.toString(), item.calculatePrice()));
+                }
             });
         }
 
-        sb.append("========================================================================================");
+        sb.append("----------------------------------------------------------------------------------------");
         return sb.toString();
     }
 
-
     private String generateReceiptFooter(double total) {
+        double tax = total * 0.07;
         return String.format(
-                        "  SUBTOTAL:                     $%.2f\n" +
-                        "  TAX (7%%):                     $%.2f\n" +
-                        "  TOTAL:                        $%.2f\n" +
-                        "----------------------------------------\n" +
-                        "  Thank you for choosing Knuckles!\n" +
-                        "  We hope to see you again soon!\n" +
-                        "========================================",
-                total,
-                total * 0.07, // Assuming 7% tax
-                total * 1.07
+                " SUBTOTAL:                     %48s$%8.2f\n" +
+                        " TAX (7%%):                     %48s$%8.2f\n" +
+                        " TOTAL:                        %48s$%8.2f\n" +
+                        "----------------------------------------------------------------------------------------\n" +
+                        "                          Thank you for choosing Knuckles!\n" +
+                        "                          We hope to see you again soon!\n" +
+                        "========================================================================================",
+                "", total,
+                "", tax,
+                "", total + tax
         );
     }
-
-
 }
