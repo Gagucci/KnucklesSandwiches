@@ -32,15 +32,24 @@ public class OrderScreen {
 
             if (item instanceof Sandwich) {
                 Sandwich s = (Sandwich) item;
-                System.out.printf("|%-86s|\n","");
-                System.out.printf("| %-85s|\n", String.format("Bread: %s %s%s",
+
+                if (!(s instanceof SignatureSandwich)) {
+                    System.out.printf("|%-86s|\n", "                    Custom Sandwich:");
+                    System.out.printf("| %-85s|\n", String.format("                    Bread: %s %s%s",
+                            s.getSize(), s.getBreadType(),
+                            s.isToasted() ? " (Toasted)" : ""));
+                } else if (s instanceof SignatureSandwich) {
+                    System.out.printf("|%-86s|\n", String.format("                    %s", ((SignatureSandwich) s).getSignatureName()));
+                }
+
+                System.out.printf("| %-85s|\n", String.format("                    Bread: %s %s%s",
                         s.getSize(), s.getBreadType(),
                         s.isToasted() ? " (Toasted)" : ""));
                 s.getToppings().forEach(t ->
                         System.out.printf("| %-85s|\n", String.format("- %s%s", t.getName(),
                                 t.isExtra() ? " (Extra)" : ""))
                 );
-                System.out.printf("|%-86s|\n","");
+                System.out.printf("|%-86s|\n", "");
             }
         });
         System.out.printf("|%85s |\n", String.format("Total: $%.2f", HomeScreen.currentOrder.calculateTotal()));
@@ -85,7 +94,7 @@ public class OrderScreen {
                     case 2:
                         System.out.println("Adding a Signature Sandwich...");
                         HomeScreen.loadingBar();
-                        // Here you would call the method to add a signature sandwich
+                        addSignatureSandwich();
                         return;
                     case 3:
                         System.out.println("Returning to main menu...");
@@ -223,7 +232,7 @@ public class OrderScreen {
                 boolean isExtra = promptYesNo("Add extra portion? (yes/no): ");
                 System.out.println("\n========================================================================================");
                 sandwich.addPremiumTopping(toppingName, isExtra);
-                System.out.printf("| %-85s|\n", String.format("Added %s %s%s",
+                System.out.printf("| %-85s|\n", String.format("                             Added %s %s%s",
                         categoryChoice.toLowerCase(),
                         toppingName,
                         isExtra ? " (Extra)" : ""));
@@ -239,10 +248,36 @@ public class OrderScreen {
 
 
     public static void addSignatureSandwich() {
+
         System.out.println("\n========================================================================================");
         System.out.printf("| %-85s|\n", "                              Available Signature Sandwiches:");
         System.out.println("----------------------------------------------------------------------------------------");
-        // Here you would list the available signature sandwiches
+
+        for (int index = 0; index < SignatureSandwich.SIGNATURE_SANDWICHES.size(); index++) {
+            String sandwichName = SignatureSandwich.SIGNATURE_SANDWICHES.keySet().toArray(new String[0])[index];
+            List<String> details = SignatureSandwich.SIGNATURE_SANDWICHES.get(sandwichName);
+
+            System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, sandwichName));
+            details.subList(1, details.size()).forEach(ingredient ->
+                    System.out.printf("| %-85s|\n", String.format("   - %s", ingredient))
+            );
+        }
+
+        System.out.println("========================================================================================\n");
+        String sandwichChoice = prompt("Select a Signature Sandwich: ", SignatureSandwich.SIGNATURE_SANDWICHES.keySet().stream().toList());
+        String sizeChoice = prompt("Select a Size: ", Sandwich.sizes);
+
+        SignatureSandwich signatureSandwich = new SignatureSandwich(sandwichChoice, sizeChoice);
+        addToppings(signatureSandwich);
+
+        HomeScreen.currentOrder.addItem(signatureSandwich);
+
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", String.format("Added %s %s Signature Sandwich to your order", sizeChoice, sandwichChoice));
+        System.out.println("========================================================================================\n");
+
+        HomeScreen.mainMenu(); // Return to main menu after adding the sandwich
+
     }
 
 
