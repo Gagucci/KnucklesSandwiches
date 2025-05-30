@@ -23,11 +23,8 @@
 ---
 
 <div align="center">
-  
 ## Screenshots:
 
-<div align="center">
-  
 ### Home Page:
 <img src="./images/welcome.png">
 
@@ -65,17 +62,54 @@ Knuckles Sandwiches is a web application that allows users to browse, customize,
 
 ## Interesting Code Snippet:
 
-One interesting piece of code is the sandwich price calculation function that dynamically computes the total cost based on selected ingredients and any applied discounts:
+
 
 ```java
-// Your code here
-```
-This function demonstrates:
-1. 
-2.
-3. 
-4.
+private static String prompt(String message, List<String> validOptions) {
+        while (true) {
+            System.out.println(message);
+            System.out.print("> ");
+            String input = HomeScreen.read.nextLine().trim();
 
+            // Case-insensitive comparison
+            for (String option : validOptions) {
+                if (option.equalsIgnoreCase(input)) {
+                    return option; // Return the properly cased version
+                }
+            }
+
+            // For numeric menu options (like "1", "2")
+            try {
+                int num = Integer.parseInt(input);
+                if (num > 0 && num <= validOptions.size()) {
+                    return validOptions.get(num - 1);
+                }
+            } catch (NumberFormatException ignored) {
+            }
+
+            System.out.println("Invalid option. Please choose from: " + validOptions);
+        }
+    }
+```
+Purpose: This helper method prompts the user for input and validates it against a list of acceptable options.
+
+Key Features: Displays a message and waits for user input
+
+Accepts input in two ways:
+
+Direct text match (case-insensitive)
+
+Numeric selection (e.g., entering "1" for the first option)
+
+Loops continuously until valid input is received
+
+Validation Logic:
+
+First checks for exact (case-insensitive) text matches
+
+Then tries to parse numbers as menu indices
+
+Shows the valid options if input is invalid
 
 ## Installation:
 
