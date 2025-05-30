@@ -1,0 +1,20 @@
+========================================
+            Knuckle's Sandwiches        
+            Order Receipt               
+----------------------------------------
+  Order Date: 2025-05-29 10:05:42 PM
+----------------------------------------
+  ITEMS:
+      40 days dry aged 72 oz a5 wagyu tomahawk steak (Extra)
+      cheddar (Extra)
+      guacamole (Extra)
+    Large Fruit PUNCH Drink        $3.00
+    Potato Chips                   $1.50
+----------------------------------------
+  SUBTOTAL:                     $36.80
+  TAX (7%):                     $2.58
+  TOTAL:                        $39.38
+----------------------------------------
+  Thank you for choosing DELI-cious!
+  We hope to see you again soon!
+========================================

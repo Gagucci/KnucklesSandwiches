@@ -23,6 +23,9 @@ public class ReceiptServices {
      * @return The path to the generated receipt file
      */
 
+    private String generateReceiptFilename(LocalDateTime orderDate) {
+        return orderDate.format(fileNameFormatter) + ".txt";
+    }
 
     public <T extends Priceable> String generateReceipt(Order<T> order) {
         createReceiptsDirectory();
@@ -41,6 +44,7 @@ public class ReceiptServices {
             // Write receipt footer
             writer.write(generateReceiptFooter(order.calculateTotal()));
             writer.newLine();
+            writer.close();
 
             return receiptFile.getAbsolutePath();
         } catch (IOException e) {
@@ -70,11 +74,6 @@ public class ReceiptServices {
     }
 
 
-    private String generateReceiptFilename(LocalDateTime orderDate) {
-        return orderDate.format(fileNameFormatter) + ".txt";
-    }
-
-
     private String generateReceiptHeader(LocalDateTime orderDate) {
         return String.format(
                         "========================================\n" +
@@ -97,8 +96,9 @@ public class ReceiptServices {
         } else {
             items.forEach(item -> {
                 // Add item line
-                sb.append(String.format("    %-30s $%.2f\n",
-                        item.toString(), item.calculatePrice()));
+                if (!(item instanceof Sandwich))  {
+                    sb.append(String.format("    %-30s $%.2f\n", item.toString(), item.calculatePrice()));
+                }
 
                 // Add topping details if this is a sandwich
                 if (item instanceof Sandwich) {

@@ -28,9 +28,9 @@ public class HomeScreen {
         System.out.print(welcome);
         System.out.print("""
                 ========================================================================================
-                |                                       Options:                                       |
+                ||                                      Options:                                      ||
                 ----------------------------------------------------------------------------------------
-                |    Press Enter to Order    |    Press A for Admin Login    |     Press Q to Quit     |        \s
+                ||   Press Enter to Order    |    Press A for Admin Login    |     Press Q to Quit    ||\s
                 ========================================================================================
                 """);
         System.out.print("> ");
@@ -78,10 +78,10 @@ public class HomeScreen {
         displayCurrentOrder();
         System.out.print("""
                 ========================================================================================
-                |                                         Options:                                     |
+                ||                                         Options:                                   ||
                 ----------------------------------------------------------------------------------------
-                |  Press 1 to Add a Sandwich   |    Press 2 to Add a Drink    |  Press 3 to Add Chips  |
-                |            |   Press 4 to Checkout Order   |   Press 5 to Cancel Order   |           |
+                || Press 1 to Add a Sandwich   |    Press 2 to Add a Drink    |  Press 3 to Add Chips ||
+                ||           |   Press 4 to Checkout Order   |   Press 5 to Cancel Order   |          ||
                 ========================================================================================
                 """);
 
@@ -116,23 +116,22 @@ public class HomeScreen {
                     case 3:
                         System.out.println("Adding Chips...");
                         loadingBar();
-                        // Call method to add chips
+                        addChips();
                         mainMenu();
                         return;
                     case 4:
                         System.out.println("Checking out order...");
                         loadingBar();
-                        // Call method to checkout order
+                        checkoutOrder();
                         break;
                     case 5:
                         System.out.println("Cancelling order...");
                         loadingBar();
-                        // Call method to cancel order
                         currentOrder = new Order<>(); // Reset the current order
                         System.out.println("""
                         ========================================================================================
-                        |                              Your Order Has Been Canceled                            |
-                        ----------------------------------------------------------------------------------------
+                        ||                             Your Order Has Been Canceled                           ||
+                        ========================================================================================
                         """);
                         start();
                         return;

@@ -75,17 +75,4 @@ public class Order<T extends Priceable> {
         );
     }
 
-
-    /**
-     * Gets a simple list of items for display
-     *
-     * @return formatted item list
-     */
-    public String getSimpleOrderSummary() {
-        return items.stream()
-                .map(item -> "- " + item.toString() +
-                        ": $" + String.format("%.2f", item.calculatePrice()))
-                .collect(Collectors.joining("\n"));
-    }
-
 }

@@ -1,0 +1,20 @@
+========================================
+            Knuckle's Sandwiches        
+            Order Receipt               
+----------------------------------------
+  Order Date: 2025-05-29 09:55:09 PM
+----------------------------------------
+  ITEMS:
+    4" Dutch Crunch Sandwich (Toasted) with 40 days dry aged 72 oz a5 wagyu tomahawk steak (Extra), foie gras (Extra) $9.25
+      40 days dry aged 72 oz a5 wagyu tomahawk steak (Extra)
+      foie gras (Extra)
+    Large Fruit PUNCH Drink        $3.00
+    Potato Chips                   $1.50
+----------------------------------------
+  SUBTOTAL:                     $13.75
+  TAX (7%):                     $0.96
+  TOTAL:                        $14.71
+----------------------------------------
+  Thank you for choosing DELI-cious!
+  We hope to see you again soon!
+========================================
