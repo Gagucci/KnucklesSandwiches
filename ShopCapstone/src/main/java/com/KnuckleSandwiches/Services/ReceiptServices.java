@@ -32,24 +32,29 @@ public class ReceiptServices {
         String filename = generateReceiptFilename(order.getOrderDate());
         File receiptFile = new File(receipts, filename);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile))) {
-            // Write receipt header
+        // Use FileOutputStream to get access to FileDescriptor.sync()
+        try (FileOutputStream fos = new FileOutputStream(receiptFile);
+             OutputStreamWriter osw = new OutputStreamWriter(fos);
+             BufferedWriter writer = new BufferedWriter(osw)) {
+
             writer.write(generateReceiptHeader(order.getOrderDate()));
             writer.newLine();
 
-            // Write order items
             writer.write(generateItemsSection(order.getItems()));
             writer.newLine();
 
-            // Write receipt footer
             writer.write(generateReceiptFooter(order.calculateTotal()));
             writer.newLine();
-            writer.close();
 
-            return receiptFile.getAbsolutePath();
+            // Ensure all data is written to disk
+            fos.getFD().sync();
+            // Close the writer to flush and release resources
+            writer.flush();
+
+            return receiptFile.getName();
         } catch (IOException e) {
             e.printStackTrace();
-            return null; // Return null or handle the error as needed
+            return null;
         }
     }
 
@@ -77,7 +82,7 @@ public class ReceiptServices {
     private String generateReceiptHeader(LocalDateTime orderDate) {
         return String.format(
                         "========================================\n" +
-                        "            Knuckle's Sandwiches        \n" +
+                        "         Knuckle's Sandwiches           \n" +
                         "            Order Receipt               \n" +
                         "----------------------------------------\n" +
                         "  Order Date: %s\n" +
@@ -123,7 +128,7 @@ public class ReceiptServices {
                         "  TAX (7%%):                     $%.2f\n" +
                         "  TOTAL:                        $%.2f\n" +
                         "----------------------------------------\n" +
-                        "  Thank you for choosing DELI-cious!\n" +
+                        "  Thank you for choosing Knuckles!\n" +
                         "  We hope to see you again soon!\n" +
                         "========================================",
                 total,

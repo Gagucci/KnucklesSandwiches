@@ -123,7 +123,7 @@ public class HomeScreen {
                         System.out.println("Checking out order...");
                         loadingBar();
                         checkoutOrder();
-                        break;
+                        return; // Exit the loop after checkout
                     case 5:
                         System.out.println("Cancelling order...");
                         loadingBar();

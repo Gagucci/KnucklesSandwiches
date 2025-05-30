@@ -1,0 +1,18 @@
+========================================
+            Knuckle's Sandwiches        
+            Order Receipt               
+----------------------------------------
+  Order Date: 2025-05-29 10:54:49 PM
+----------------------------------------
+  ITEMS:
+      brie (Extra)
+      falafel (Extra)
+      lettuce
+----------------------------------------
+  SUBTOTAL:                     $24.43
+  TAX (7%):                     $1.71
+  TOTAL:                        $26.13
+----------------------------------------
+  Thank you for choosing Knuckles!
+  We hope to see you again soon!
+========================================

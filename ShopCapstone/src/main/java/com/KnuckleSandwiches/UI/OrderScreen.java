@@ -306,32 +306,31 @@ public class OrderScreen {
 
 
     public static void checkoutOrder() {
-        displayCurrentOrder();
         if (HomeScreen.currentOrder.getItems().isEmpty()) {
             System.out.println("========================================================================================");
-            System.out.printf("|%-85s|\n", "                             Your Order is currently empty.");
+            System.out.printf("|%-85s|\n", "                             You must add items before checking out.");
             System.out.println("========================================================================================\n");
-            return;
+            HomeScreen.mainMenu();
         }
 
+        displayCurrentOrder();
         if (!promptYesNo("Would you like to checkout your order? (yes/no): ")) {
             System.out.println("\n========================================================================================");
             System.out.printf("|%-85s|\n", "                             Check out has been canceled.");
             System.out.println("========================================================================================\n");
-            return;
+            HomeScreen.mainMenu();
         }
 
         String receiptFile = receiptService.generateReceipt(HomeScreen.currentOrder);
-        receiptService.displayReceipt(HomeScreen.currentOrder);
-        HomeScreen.currentOrder = new Order<>(); // Reset the current order after checkout
+
 
         System.out.println("\n========================================================================================");
-        System.out.printf("|%-85s|\n", "                             Your order has been checked out successfully.");
-        System.out.printf("|%-85s|\n", String.format("                             Receipt saved to: %s", receiptFile));
+        System.out.printf("|%-85s|\n", "                       Your order has been checked out successfully.");
+        System.out.printf("|%-85s|\n", String.format("                            Receipt saved to: %s", receiptFile));
         System.out.println("========================================================================================\n");
+        receiptService.displayReceipt(HomeScreen.currentOrder);
 
-
-        HomeScreen.mainMenu();
+        HomeScreen.currentOrder = new Order<>(); // Reset the current order after checkout
     }
 }
 
