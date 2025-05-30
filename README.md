@@ -8,7 +8,6 @@
 <div align="center">
   
 ## Table of Contents:
- * [Screenshots:](#screenshots)
  * [Project Description:](#project-description)
  * [Features:](#features)
  * [Interesting Code Snippet:](#interesting-code-snippet)
@@ -23,7 +22,6 @@
 ---
 
 <div align="center">
-## Screenshots:
 
 ### Home Page:
 <img src="./images/welcome.png">
