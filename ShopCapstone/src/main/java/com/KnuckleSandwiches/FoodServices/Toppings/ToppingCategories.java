@@ -30,7 +30,7 @@ public class ToppingCategories {
 
 
     public static List<String> getAllCategories() {
-        return List.of("Meats", "Cheeses", "Specials", "Vegetables", "Sauces", "Sides");
+        return List.of("Meats", "Cheeses", "Specials", "Vegetables", "Sauces", "Sides", "done");
     }
 
 

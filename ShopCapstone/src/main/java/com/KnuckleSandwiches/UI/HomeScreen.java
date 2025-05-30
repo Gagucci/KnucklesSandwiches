@@ -105,17 +105,20 @@ public class HomeScreen {
                         System.out.println("Adding a Sandwich...");
                         loadingBar();
                         sandwichMenu();
-                        break;
+                        mainMenu();
+                        return;
                     case 2:
                         System.out.println("Adding a Drink...");
                         loadingBar();
                         // Call method to add a drink
-                        break;
+                        mainMenu();
+                        return;
                     case 3:
                         System.out.println("Adding Chips...");
                         loadingBar();
                         // Call method to add chips
-                        break;
+                        mainMenu();
+                        return;
                     case 4:
                         System.out.println("Checking out order...");
                         loadingBar();

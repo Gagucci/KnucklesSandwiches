@@ -12,14 +12,14 @@ public class OrderScreen {
 
     public static void displayCurrentOrder() {
         if (HomeScreen.currentOrder.getItems().isEmpty()) {
-            System.out.println("========================================================================================");
+            System.out.println("\n========================================================================================");
             System.out.printf("|%-86s|\n", "                             Your Order is currently empty.");
-            System.out.println("========================================================================================");
+            System.out.println("========================================================================================\n");
             return;
         }
 
         System.out.println("========================================================================================");
-        System.out.printf("|%-86s|\n", "Your Order:");
+        System.out.printf("|%-86s|\n", "                          Your Order:");
         System.out.println("----------------------------------------------------------------------------------------");
 
         HomeScreen.currentOrder.getItems().forEach(item -> {
@@ -30,13 +30,13 @@ public class OrderScreen {
                         s.getSize(), s.getBreadType(),
                         s.isToasted() ? " (Toasted)" : ""));
                 s.getToppings().forEach(t ->
-                        System.out.printf("| %-86s |\n", String.format("- %s%s", t.getName(),
+                        System.out.printf("\n| %-86s |\n", String.format("- %s%s", t.getName(),
                                 t.isExtra() ? " (Extra)" : ""))
                 );
             }
         });
         System.out.printf("| %86s |\n", String.format("Total: $%.2f", HomeScreen.currentOrder.calculateTotal()));
-        System.out.println("========================================================================================");
+        System.out.println("========================================================================================\n");
 
     }
 
@@ -73,12 +73,12 @@ public class OrderScreen {
                         System.out.println("Adding a Custom Sandwich...");
                         HomeScreen.loadingBar();
                         addCustomSandwich();
-                        break;
+                        return; // Exit the sandwich menu after adding a custom sandwich
                     case 2:
                         System.out.println("Adding a Signature Sandwich...");
                         HomeScreen.loadingBar();
                         // Here you would call the method to add a signature sandwich
-                        break;
+                        return;
                     case 3:
                         System.out.println("Returning to main menu...");
                         HomeScreen.loadingBar();
@@ -135,19 +135,29 @@ public class OrderScreen {
 
 
     public static void addCustomSandwich() {
-        System.out.println("========================================================================================");
-        System.out.printf("|%-86s|\n", "Available Bread Types:");
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", "                              Available Bread Types:");
         System.out.println("----------------------------------------------------------------------------------------");
-        Sandwich.breadTypes.forEach(bread -> System.out.printf("|%-86s|\n", bread));
-        System.out.println("========================================================================================");
+
+        for (int index = 0; index < Sandwich.breadTypes.size(); index++) {
+            String bread = Sandwich.breadTypes.get(index);
+            System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, bread));
+        }
+
+        System.out.println("========================================================================================\n");
 
         String breadChoice = prompt("Please enter your choice of bread: ", Sandwich.breadTypes);
 
-        System.out.println("========================================================================================");
-        System.out.printf("|%-86s|\n", "Available Sizes:");
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", "Available Sizes:");
         System.out.println("----------------------------------------------------------------------------------------");
-        Sandwich.sizes.forEach(size -> System.out.printf("|%-86s|\n", size));
-        System.out.println("========================================================================================");
+
+        for (int index = 0; index < Sandwich.sizes.size(); index++) {
+            String size = Sandwich.sizes.get(index);
+            System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, size));
+        }
+
+        System.out.println("========================================================================================\n");
 
         String sizeChoice = prompt("Please enter your choice of size: ", Sandwich.sizes);
 
@@ -156,51 +166,62 @@ public class OrderScreen {
         sandwich.setIsToasted(promptYesNo("\nWould you like your sandwich toasted? (yes/no): "));
 
         HomeScreen.currentOrder.addItem(sandwich);
-        System.out.println("========================================================================================");
-        System.out.printf("|%-86s|\n", String.format("Added %s %s Sandwich to your order", sizeChoice, breadChoice));
-        System.out.println("========================================================================================");
-
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", String.format("Added %s %s Sandwich to your order", sizeChoice, breadChoice));
+        System.out.println("========================================================================================\n");
 
     }
 
     private static void addToppings(Sandwich sandwich) {
 
         while (true) {
-            System.out.println("========================================================================================");
-            System.out.printf("|%-86s|\n", "Toppings Categories:");
+            System.out.println("\n========================================================================================");
+            System.out.printf("| %-85s|\n", "Toppings Categories:");
             System.out.println("----------------------------------------------------------------------------------------");
 
-            ToppingCategories.getAllCategories().forEach(cat -> System.out.printf("|%-86s|\n", String.format("- %s%s", cat, ToppingCategories.isPremium(cat) ? " (Premium)" : "")));
-            System.out.println("========================================================================================");
+            List<String> categories = ToppingCategories.getAllCategories();
+
+            for (int index = 0; index < categories.size(); index++) {
+                String cat = categories.get(index);
+                System.out.printf("| %-85s|\n", String.format("%d. %s%s", index + 1, cat, ToppingCategories.isPremium(cat) ? " (Premium)" : ""));
+            }
+
+            System.out.println("========================================================================================\n");
             String categoryChoice = prompt("Please enter a topping category (or type 'done' to finish): ", ToppingCategories.getAllCategories());
 
             if (categoryChoice.equalsIgnoreCase("done")) {
                 break;
             }
 
-            System.out.println("========================================================================================");
-            System.out.printf("|%86s|\n", String.format("Available %s toppings:", categoryChoice));
+            System.out.println("\n========================================================================================");
+            System.out.printf("| %-85s|\n", String.format("Available %s toppings:", categoryChoice));
             System.out.println("----------------------------------------------------------------------------------------");
 
             List<String> toppings = ToppingCategories.getToppingsByCategory(categoryChoice);
-            toppings.forEach(t -> System.out.printf("| %-86s |\n", t));
-            System.out.println("========================================================================================");
+
+            for (int index = 0; index < toppings.size(); index++) {
+                String topping = toppings.get(index);
+                System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, topping));
+            }
+            System.out.println("========================================================================================\n");
+
 
             String toppingName = prompt("Select topping: ", toppings);
 
             if (ToppingCategories.isPremium(categoryChoice)) {
                 boolean isExtra = promptYesNo("Add extra portion? (yes/no): ");
+                System.out.println("\n========================================================================================");
                 sandwich.addPremiumTopping(toppingName, isExtra);
-                System.out.printf("|%-86s|\n", String.format("Added %s %s%s",
+                System.out.printf("| %-85s|\n", String.format("Added %s %s%s",
                         categoryChoice.toLowerCase(),
                         toppingName,
                         isExtra ? " (Extra)" : ""));
             } else {
+                System.out.println("\n========================================================================================");
                 sandwich.addRegularTopping(toppingName, categoryChoice);
-                System.out.printf("|%-86s|\n", String.format("Added %s", toppingName));
+                System.out.printf("| %-85s|\n", String.format("Added %s", toppingName));
             }
-            System.out.println("========================================================================================");
-
+            System.out.println("========================================================================================\n");
 
         }
     }
