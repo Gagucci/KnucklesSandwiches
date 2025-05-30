@@ -39,6 +39,9 @@ public class Sandwich extends MenuItem {
         this.toppings = new ArrayList<>();
     }
 
+    public Sandwich() {
+    }
+
 
     public String getBreadType() { return BreadType; }
     public String getSize() { return Size; }
