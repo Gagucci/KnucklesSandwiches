@@ -14,8 +14,8 @@ public class Drink extends MenuItem {
     public String getFlavor() { return flavor; }
 
 
-    private static final List<String> validSizes = List.of("Small", "Medium", "Large");
-    private static final List<String> validFlavors = List.of(
+    public static final List<String> validSizes = List.of("Small", "Medium", "Large");
+    public static final List<String> validFlavors = List.of(
             "Fruit PUNCH", "Orange Juice", "Apple Juice", "Lemonade", "Iced Tea", "Cola", "Sprite", "Root Beer", "Dr.Pepper", "Ginger Ale", "Water"
     );
 

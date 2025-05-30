@@ -1,7 +1,7 @@
 package com.KnuckleSandwiches.UI;
 
-import com.KnuckleSandwiches.FoodServices.Items.Sandwich;
-import com.KnuckleSandwiches.FoodServices.Toppings.ToppingCategories;
+import com.KnuckleSandwiches.FoodServices.Items.*;
+import com.KnuckleSandwiches.FoodServices.Toppings.*;
 import com.KnuckleSandwiches.Services.ReceiptServices;
 import java.util.List;
 import static com.KnuckleSandwiches.UI.AsciiArts.*;
@@ -12,7 +12,7 @@ public class OrderScreen {
 
     public static void displayCurrentOrder() {
         if (HomeScreen.currentOrder.getItems().isEmpty()) {
-            System.out.println("\n========================================================================================");
+            System.out.println("========================================================================================");
             System.out.printf("|%-86s|\n", "                             Your Order is currently empty.");
             System.out.println("========================================================================================\n");
             return;
@@ -23,19 +23,22 @@ public class OrderScreen {
         System.out.println("----------------------------------------------------------------------------------------");
 
         HomeScreen.currentOrder.getItems().forEach(item -> {
-            System.out.printf("| %-86s |\n", String.format("%s: $%.2f", item.toString(), item.calculatePrice()));
+            if (!(item instanceof Sandwich)) {
+                System.out.printf("| %-85s|\n", String.format("%s: $%.2f", item.toString(), item.calculatePrice()));
+            }
+
             if (item instanceof Sandwich) {
                 Sandwich s = (Sandwich) item;
-                System.out.printf("| %-86s |\n", String.format("Bread: %s %s%s",
+                System.out.printf("| %-85s|\n", String.format("Bread: %s %s%s",
                         s.getSize(), s.getBreadType(),
                         s.isToasted() ? " (Toasted)" : ""));
                 s.getToppings().forEach(t ->
-                        System.out.printf("\n| %-86s |\n", String.format("- %s%s", t.getName(),
+                        System.out.printf("| %-85s|\n", String.format("- %s%s", t.getName(),
                                 t.isExtra() ? " (Extra)" : ""))
                 );
             }
         });
-        System.out.printf("| %86s |\n", String.format("Total: $%.2f", HomeScreen.currentOrder.calculateTotal()));
+        System.out.printf("|%85s |\n", String.format("Total: $%.2f", HomeScreen.currentOrder.calculateTotal()));
         System.out.println("========================================================================================\n");
 
     }
@@ -97,6 +100,7 @@ public class OrderScreen {
         }
     }
 
+
     private static String prompt(String message, List<String> validOptions) {
         while (true) {
             System.out.println(message);
@@ -122,6 +126,7 @@ public class OrderScreen {
             System.out.println("Invalid option. Please choose from: " + validOptions);
         }
     }
+
 
     private static boolean promptYesNo(String message) {
         while (true) {
@@ -172,6 +177,7 @@ public class OrderScreen {
 
     }
 
+
     private static void addToppings(Sandwich sandwich) {
 
         while (true) {
@@ -200,9 +206,9 @@ public class OrderScreen {
             List<String> toppings = ToppingCategories.getToppingsByCategory(categoryChoice);
 
             for (int index = 0; index < toppings.size(); index++) {
-                String topping = toppings.get(index);
-                System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, topping));
-            }
+                    String topping = toppings.get(index);
+                    System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, topping));
+                }
             System.out.println("========================================================================================\n");
 
 
@@ -226,12 +232,47 @@ public class OrderScreen {
         }
     }
 
-    public static void addSignatureSandwich() {
 
+    public static void addSignatureSandwich() {
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", "                              Available Signature Sandwiches:");
+        System.out.println("----------------------------------------------------------------------------------------");
+        // Here you would list the available signature sandwiches
     }
 
 
     public static void addDrink() {
+
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", "                              Available Drinks Sizes:");
+        System.out.println("----------------------------------------------------------------------------------------");
+
+        for (int index = 0; index < Drink.validSizes.size(); index++) {
+            String topping = Drink.validSizes.get(index);
+            System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, topping));
+        }
+
+        System.out.println("========================================================================================\n");
+        String sizeChoice = prompt("Select a Size: ", Drink.validSizes);
+
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", "Available Drink Types:");
+        System.out.println("----------------------------------------------------------------------------------------");
+
+        for (int index = 0; index < Drink.validFlavors.size(); index++) {
+            String topping = Drink.validFlavors.get(index);
+            System.out.printf("| %-85s|\n", String.format("%d. %s", index + 1, topping));
+        }
+
+        System.out.println("========================================================================================\n");
+        String flavorChoice = prompt("Select a Flavor: ", Drink.validFlavors);
+
+        Drink drink = new Drink(sizeChoice, flavorChoice);
+        HomeScreen.currentOrder.addItem(drink);
+
+        System.out.println("\n========================================================================================");
+        System.out.printf("| %-85s|\n", String.format("Added %s %s Drink to your order", sizeChoice, flavorChoice));
+        System.out.println("========================================================================================\n");
 
     }
 

@@ -56,7 +56,6 @@ public class ToppingCategories {
 
     }
 
-
     public static boolean isPremiumTopping(String category) {
         return premiumToppings.containsKey(category);
     }

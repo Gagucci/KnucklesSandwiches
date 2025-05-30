@@ -110,7 +110,7 @@ public class HomeScreen {
                     case 2:
                         System.out.println("Adding a Drink...");
                         loadingBar();
-                        // Call method to add a drink
+                        addDrink();
                         mainMenu();
                         return;
                     case 3:
@@ -128,6 +128,12 @@ public class HomeScreen {
                         System.out.println("Cancelling order...");
                         loadingBar();
                         // Call method to cancel order
+                        currentOrder = new Order<>(); // Reset the current order
+                        System.out.println("""
+                        ========================================================================================
+                        |                              Your Order Has Been Canceled                            |
+                        ----------------------------------------------------------------------------------------
+                        """);
                         start();
                         return;
                 }
