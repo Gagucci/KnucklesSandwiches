@@ -364,7 +364,7 @@ public class OrderScreen {
         System.out.println("\n========================================================================================");
         System.out.printf("| %-85s|\n", "                     Your order has been checked out successfully.");
         System.out.printf("| %-85s|\n", String.format("                         Receipt saved to: %s", receiptFile));
-        System.out.println("========================================================================================\n");
+        System.out.println("========================================================================================\n\n\n");
         receiptService.displayReceipt(HomeScreen.currentOrder);
 
         HomeScreen.currentOrder = new Order<>(); // Reset the current order after checkout
