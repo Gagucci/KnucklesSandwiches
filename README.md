@@ -5,15 +5,18 @@
 </div>
 
 
-
+<div align="center">
+  
 ## Table of Contents:
-- [Screenshots](#screenshots)
-- [Project Description](#project-description)
-- [Features](#features)
-- [Interesting Code Snippet](#interesting-code-snippet)
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
+ * [Screenshots:](#screenshots)
+ * [Project Description:](#project-description)
+ * [Features:](#features)
+ * [Interesting Code Snippet:](#interesting-code-snippet)
+ * [Installation:](#installation)
+ * [Usage:](#usage)
+ * [License:](#license) 
+</div>
+
 
 
 
@@ -78,16 +81,16 @@ This function demonstrates:
 
 To run Knuckles Sandwiches locally:
 
-1. Clone the repository:
+ Clone the repository:
 ```bash
 git clone https://github.com/Gagucci/KnucklesSandwiches.git
 cd KnucklesSandwiches
-
-
-2. Open with Intellij
-
-4. Run the application using Maven:
 ```
+
+ Open with Intellij
+
+ Run the application using Maven
+
 
 ## Usage:
 
