@@ -12,11 +12,11 @@ public class SignatureSandwich extends Sandwich {
     private final String signatureName;
 
     public static final Map<String, List<String>> SIGNATURE_SANDWICHES = Map.of(
-            "Right Hook", List.of("Italian Herb", "salami", "pepperoni", "provolone", "lettuce", "tomato", "red onion", "Italian Dressing"),
+            "Right Hook", List.of("Italian Herb", "salami", "pepperoni", "provolone", "lettuce", "tomato", "red onion", "italian dressing"),
             "The Armbar-b-q", List.of("Pretzel Roll", "pulled pork", "black belt bbq sauce", "coleslaw"),
             "Fight Club", List.of("Dutch Crunch", "roast beef", "kickin avocado lime ranch", "arugula", "tomato"),
             "Eat The Rich", List.of("Ciabatta", "40 days dry aged 72 oz a5 wagyu tomahawk steak", "prosciutto", "capicola", "burrata", "raclette", "foie gras", "italian white truffle", "black garlic aioli", "siberian sturgeon caviar", "52 oysters"),
-            "TKO", List.of("Asiago Jalapeno", "turkey", "tomato", "kale", "kandied bacon", "kickin avocado lime ranch", "red onions")
+            "TKO", List.of("Asiago Jalapeno", "turkey", "tomato", "kale", "kandied bacon", "kickin avocado lime ranch", "red onion")
     );
 
     public SignatureSandwich(String name, String size) {

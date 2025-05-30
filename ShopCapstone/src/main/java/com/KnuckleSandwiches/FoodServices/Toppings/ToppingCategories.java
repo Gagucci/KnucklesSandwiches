@@ -14,7 +14,7 @@ public class ToppingCategories {
 
     public static final Map<String, List<String>> regularToppings = Map.of(
             "Vegetables", List.of("lettuce", "tomato", "kale", "red onion", "cucumber", "pickles", "pickled jalapenos", "pickled banana peppers", "spinach", "arugula", "micro greens", "pickled carrot and daikon", "roasted bell peppers"),
-            "Sauces", List.of("kickin avocado lime ranch", "southpaw sriracha ranch", "roundhouse ranch", "slap ya mama sauce hot sauce", "head kick hot honey", "black belt bbq sauce", "black garlic aioli", "chipotle aioli", "mayo", "kewpie mayo", "honey mustard", "dijon mustard", "red wine vinegar", "olive oil", "blast double balsamic vinaigrette", "liver shot pâté", "tahini sauce"),
+            "Sauces", List.of("kickin avocado lime ranch", "southpaw sriracha ranch", "roundhouse ranch", "slap ya mama sauce hot sauce", "head kick hot honey", "black belt bbq sauce", "black garlic aioli", "chipotle aioli", "mayo", "kewpie mayo", "honey mustard", "dijon mustard", "red wine vinegar", "olive oil", "blast double balsamic vinaigrette", "liver shot pâté", "tahini sauce", "italian dressing"),
             "Sides", List.of("au jus", "tomato soup", "cup of beans", "siberian sturgeon caviar", "52 oysters", "coleslaw")
     );
 
