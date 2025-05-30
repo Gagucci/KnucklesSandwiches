@@ -92,6 +92,7 @@ public class ReceiptServices {
 
                     // Format sandwich title and price
                     sb.append(String.format("    %-60s $%8.2f\n", sandwichTitle, sandwich.calculatePrice()));
+                    sb.append(String.format("    %-60s %8s\n", sandwich.getBreadType(), sandwich.getSize()));
 
                     // Add toppings
                     if (sandwich.getToppings() != null) {

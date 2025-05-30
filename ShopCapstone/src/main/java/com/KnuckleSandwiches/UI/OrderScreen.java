@@ -268,8 +268,9 @@ public class OrderScreen {
         }
 
         System.out.println("========================================================================================\n");
+
         String sandwichChoice = prompt("Select a Signature Sandwich: ", SignatureSandwich.SIGNATURE_SANDWICHES.keySet().stream().toList());
-        String sizeChoice = prompt("Select a Size: ", Sandwich.sizes);
+        String sizeChoice = prompt("Select a Size (4\", 8\", 12\", 24\"): ", Sandwich.sizes);
 
         SignatureSandwich signatureSandwich = new SignatureSandwich(sandwichChoice, sizeChoice);
         addToppings(signatureSandwich);

@@ -27,10 +27,10 @@ public class Order<T extends Priceable> {
      *
      * @param item - the item to add
      */
-
     public void addItem(T item) {
         items.add(item);
     }
+
 
     /**
      * Calculates the total price of all items in the order
@@ -42,6 +42,7 @@ public class Order<T extends Priceable> {
                 .mapToDouble(Priceable::calculatePrice)
                 .sum();
     }
+
 
     /**
      * Gets a detailed description of all items in the order
