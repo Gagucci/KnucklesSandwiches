@@ -1,0 +1,21 @@
+========================================
+         Knuckle's Sandwiches           
+            Order Receipt               
+----------------------------------------
+  Order Date: 2025-05-30 02:34:18 AM
+----------------------------------------
+  ITEMS:
+      40 days dry aged 72 oz a5 wagyu tomahawk steak (Extra)
+      pepper jack (Extra)
+      roast beef
+      kickin avocado lime ranch
+      arugula
+      tomato
+----------------------------------------
+  SUBTOTAL:                     $27.05
+  TAX (7%):                     $1.89
+  TOTAL:                        $28.94
+----------------------------------------
+  Thank you for choosing Knuckles!
+  We hope to see you again soon!
+========================================

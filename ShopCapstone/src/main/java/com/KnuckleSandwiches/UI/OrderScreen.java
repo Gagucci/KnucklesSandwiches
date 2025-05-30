@@ -34,18 +34,18 @@ public class OrderScreen {
                 Sandwich s = (Sandwich) item;
 
                 if (!(s instanceof SignatureSandwich)) {
-                    System.out.printf("| %-85s|\n", String.format("                         Custom Sandwich: $%.2f", s.calculatePrice()));
+                    System.out.printf("| %-85s|\n", String.format("                        Custom Sandwich: $%.2f", s.calculatePrice()));
                     System.out.printf("| %-85s|\n", String.format("                         Bread: %s %s%s",
                             s.getSize(), s.getBreadType(),
                             s.isToasted() ? " (Toasted)" : ""));
                 } else if (s instanceof SignatureSandwich) {
                     System.out.printf("|%-86s|\n", "");
                     System.out.printf("|%-86s|\n", String.format("                         %s: $%.2f", ((SignatureSandwich) s).getSignatureName(), s.calculatePrice()));
-                }
-
                 System.out.printf("| %-85s|\n", String.format("                         Bread: %s %s%s",
                         s.getSize(), s.getBreadType(),
                         s.isToasted() ? " (Toasted)" : ""));
+                }
+
                 s.getToppings().forEach(t ->
                         System.out.printf("| %-85s|\n", String.format("                         - %s%s", t.getName(),
                                 t.isExtra() ? " (Extra)" : ""))
@@ -222,7 +222,7 @@ public class OrderScreen {
 
             for (int index = 0; index < toppings.size(); index++) {
                     String topping = toppings.get(index);
-                    System.out.printf("| %-85s|\n", String.format("                              %d. %s", index + 1, topping));
+                    System.out.printf("| %-85s|\n", String.format("                         %d. %s", index + 1, topping));
                 }
             System.out.println("========================================================================================\n");
 
@@ -353,11 +353,11 @@ public class OrderScreen {
         }
 
         displayCurrentOrder();
+
         if (!promptYesNo("Would you like to checkout your order? (yes/no): ")) {
             System.out.println("\n========================================================================================");
             System.out.printf("|%-85s|\n", "                             Check out has been canceled.");
             System.out.println("========================================================================================\n");
-            HomeScreen.mainMenu();
         }
 
         String receiptFile = receiptService.generateReceipt(HomeScreen.currentOrder);
@@ -367,7 +367,8 @@ public class OrderScreen {
         System.out.println("========================================================================================\n");
         receiptService.displayReceipt(HomeScreen.currentOrder);
 
-        HomeScreen.currentOrder = new Order<>();// Reset the current order after checkout
+        HomeScreen.currentOrder = new Order<>(); // Reset the current order after checkout
+        System.out.print(thankYou);
     }
 }
 

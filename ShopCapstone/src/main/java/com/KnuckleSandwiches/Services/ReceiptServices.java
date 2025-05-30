@@ -1,6 +1,7 @@
 package com.KnuckleSandwiches.Services;
 
 import com.KnuckleSandwiches.FoodServices.Items.Sandwich;
+import com.KnuckleSandwiches.FoodServices.Items.SignatureSandwich;
 import com.KnuckleSandwiches.FoodServices.Order;
 import com.KnuckleSandwiches.Interfaces.Priceable;
 
@@ -81,12 +82,12 @@ public class ReceiptServices {
 
     private String generateReceiptHeader(LocalDateTime orderDate) {
         return String.format(
-                        "========================================\n" +
-                        "         Knuckle's Sandwiches           \n" +
-                        "            Order Receipt               \n" +
-                        "----------------------------------------\n" +
-                        "  Order Date: %s\n" +
-                        "----------------------------------------",
+                        "========================================================================================\n" +
+                        "                                  Knuckle's Sandwiches                                  \n" +
+                        "                                     Order Receipt                                      \n" +
+                        "----------------------------------------------------------------------------------------\n" +
+                        "                          Order Date: %s                                                \n" +
+                        "----------------------------------------------------------------------------------------",
                 orderDate.format(receiptDateFormatter)
         );
     }
@@ -94,30 +95,38 @@ public class ReceiptServices {
 
     private <T extends Priceable> String generateItemsSection(List<T> items) {
         StringBuilder sb = new StringBuilder();
-        sb.append("  ITEMS:\n");
+        sb.append(
+                "                                        ITEMS                                           \n" +
+                        "----------------------------------------------------------------------------------------\n"
+        );
 
         if (items.isEmpty()) {
-            sb.append("    No items in order\n");
+            sb.append("%-85s    No items in order\n");
         } else {
+
             items.forEach(item -> {
                 // Add item line
                 if (!(item instanceof Sandwich))  {
-                    sb.append(String.format("    %-30s $%.2f\n", item.toString(), item.calculatePrice()));
+                    sb.append(String.format("    %-70s $%10.2f\n", item.toString(), item.calculatePrice()));
                 }
 
-                // Add topping details if this is a sandwich
-                if (item instanceof Sandwich) {
-                    Sandwich sandwich = (Sandwich) item;
-                    sandwich.getToppings().forEach(topping -> {
-                        sb.append(String.format("      %s%s\n",
+               // Add topping details if this is a sandwich
+                    if (item instanceof Sandwich) {
+                        Sandwich sandwich = (Sandwich) item;
+                        String sandwichTitle = sandwich.isCustom()
+                                ? "Custom Sandwich"
+                                : ((SignatureSandwich) sandwich).getSignatureName();
+
+                        sb.append(String.format("    %-70s $%10.2f\n", sandwichTitle, sandwich.calculatePrice()));
+
+                        sandwich.getToppings().forEach(topping -> sb.append(String.format("      %-65s%-15s\n",
                                 topping.getName(),
-                                topping.isExtra() ? " (Extra)" : ""));
-                    });
-                }
+                                topping.isExtra() ? " (Extra)" : "")));
+                    }
             });
         }
 
-        sb.append("----------------------------------------");
+        sb.append("========================================================================================");
         return sb.toString();
     }
 

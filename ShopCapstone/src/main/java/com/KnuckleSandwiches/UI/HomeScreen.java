@@ -122,8 +122,8 @@ public class HomeScreen {
                     case 4:
                         System.out.println("Checking out order...");
                         loadingBar();
-                        checkoutOrder();
-                        return; // Exit the loop after checkout
+                        OrderScreen.checkoutOrder();
+                        System.exit(0); // Exit the program after checkout
                     case 5:
                         System.out.println("Cancelling order...");
                         loadingBar();

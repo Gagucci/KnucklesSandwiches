@@ -1,0 +1,27 @@
+========================================
+         Knuckle's Sandwiches           
+            Order Receipt               
+----------------------------------------
+  Order Date: 2025-05-30 02:13:51 AM
+----------------------------------------
+  ITEMS:
+      40 days dry aged 72 oz a5 wagyu tomahawk steak
+      prosciutto
+      capicola
+      burrata
+      raclette
+      foie gras
+      italian white truffle
+      black garlic aioli
+      siberian sturgeon caviar
+      52 oysters
+    Large Fruit PUNCH Drink        $3.00
+    Salt & Vinegar Chips           $1.50
+----------------------------------------
+  SUBTOTAL:                     $46.25
+  TAX (7%):                     $3.24
+  TOTAL:                        $49.49
+----------------------------------------
+  Thank you for choosing Knuckles!
+  We hope to see you again soon!
+========================================
