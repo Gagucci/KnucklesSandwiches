@@ -6,7 +6,7 @@
 
 
 
-## Table of Contents
+## Table of Contents:
 - [Screenshots](#screenshots)
 - [Project Description](#project-description)
 - [Features](#features)
@@ -21,17 +21,17 @@
 
 <div align="center">
   
-## Screenshots
+## Screenshots:
 
 <div align="center">
   
-### Home Page
+### Home Page:
 <img src="./images/welcome.png">
 
-### Sandwich Builder
+### Sandwich Builder:
 <img src="./images/breads.png">
 
-### Order Receipt
+### Order Receipt:
 <img src="./images/receipt.png">
 
 </div>
@@ -39,7 +39,7 @@
 
 ---
 
-## Project Description
+## Project Description:
 
 Knuckles Sandwiches is a web application that allows users to browse, customize, and order delicious sandwiches online. Inspired by the iconic character Knuckles from Sonic the Hedgehog, this app combines fun theming with practical food ordering functionality.
 
@@ -49,7 +49,7 @@ Knuckles Sandwiches is a web application that allows users to browse, customize,
 
 ---
 
-## Features
+## Features:
 
 - 🍞 Create custom sandwiches with a variety of breads, meats, and toppings
 - 🛒 Shopping cart functionality
@@ -60,7 +60,7 @@ Knuckles Sandwiches is a web application that allows users to browse, customize,
 
 
 
-## Interesting Code Snippet
+## Interesting Code Snippet:
 
 One interesting piece of code is the sandwich price calculation function that dynamically computes the total cost based on selected ingredients and any applied discounts:
 
@@ -74,7 +74,7 @@ This function demonstrates:
 4.
 
 
-## Installation
+## Installation:
 
 To run Knuckles Sandwiches locally:
 
@@ -89,14 +89,14 @@ cd KnucklesSandwiches
 4. Run the application using Maven:
 ```
 
-## Usage
+## Usage:
 
 - Browse the menu or create a custom sandwich
 - Add items to your cart
 - Proceed to checkout
 
 
-## License
+## License:
 
 <div align="center">
 
