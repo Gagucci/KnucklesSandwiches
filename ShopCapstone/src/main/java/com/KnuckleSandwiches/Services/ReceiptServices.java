@@ -67,7 +67,7 @@ public class ReceiptServices {
                         "                                  Knuckle's Sandwiches                                  \n" +
                         "                                     Order Receipt                                      \n" +
                         "----------------------------------------------------------------------------------------\n" +
-                        "                          Order Date: %s                                                \n" +
+                        "                           Order Date: %s                                               \n" +
                         "----------------------------------------------------------------------------------------",
                 orderDate.format(receiptDateFormatter)
         );
@@ -121,7 +121,7 @@ public class ReceiptServices {
                         " TOTAL:                        %48s$%8.2f\n" +
                         "----------------------------------------------------------------------------------------\n" +
                         "                          Thank you for choosing Knuckles!\n" +
-                        "                          We hope to see you again soon!\n" +
+                        "                           We hope to see you again soon!\n" +
                         "========================================================================================",
                 "", total,
                 "", tax,

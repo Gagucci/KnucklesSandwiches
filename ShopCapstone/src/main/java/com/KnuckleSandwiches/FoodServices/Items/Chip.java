@@ -6,7 +6,7 @@ public class Chip extends MenuItem {
 
     private final String type;
     private static final double basePrice = 1.50;
-    public static final List<String> validTypes = List.of("Potato", "BBQ", "Salt & Vinegar", "Veggie", "Tortilla", "cheese");
+    public static final List<String> validTypes = List.of("Potato", "BBQ", "Salt & Vinegar", "Veggie", "Tortilla", "Cheese", "Sour Cream & Onion", "Kettle Cooked", "Baked", "Pita Chips");
 
     public String getType() { return type; }
 

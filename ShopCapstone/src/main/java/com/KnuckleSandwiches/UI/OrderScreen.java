@@ -26,7 +26,7 @@ public class OrderScreen {
         HomeScreen.currentOrder.getItems().forEach(item -> {
             if (!(item instanceof Sandwich)) {
                 System.out.printf("|%-86s|\n","");
-                System.out.printf("| %-85s|\n", String.format("                         %s: $%.2f", item.toString(), item.calculatePrice()));
+                System.out.printf("| %-85s|\n", String.format("                          %s: $%.2f", item.toString(), item.calculatePrice()));
                 System.out.printf("|%-86s|\n","");
             }
 
@@ -34,7 +34,7 @@ public class OrderScreen {
                 Sandwich s = (Sandwich) item;
 
                 if (!(s instanceof SignatureSandwich)) {
-                    System.out.printf("| %-85s|\n", String.format("                        Custom Sandwich: $%.2f", s.calculatePrice()));
+                    System.out.printf("| %-85s|\n", String.format("                         Custom Sandwich: $%.2f", s.calculatePrice()));
                     System.out.printf("| %-85s|\n", String.format("                         Bread: %s %s%s",
                             s.getSize(), s.getBreadType(),
                             s.isToasted() ? " (Toasted)" : ""));
@@ -161,7 +161,7 @@ public class OrderScreen {
 
         for (int index = 0; index < Sandwich.breadTypes.size(); index++) {
             String bread = Sandwich.breadTypes.get(index);
-            System.out.printf("| %-85s|\n", String.format("                              %d. %s", index + 1, bread));
+            System.out.printf("| %-85s|\n", String.format("                                %d. %s", index + 1, bread));
         }
 
         System.out.println("========================================================================================\n");
@@ -174,7 +174,7 @@ public class OrderScreen {
 
         for (int index = 0; index < Sandwich.sizes.size(); index++) {
             String size = Sandwich.sizes.get(index);
-            System.out.printf("| %-85s|\n", String.format("                               %d. %s", index + 1, size));
+            System.out.printf("| %-85s|\n", String.format("                                    %d. %s", index + 1, size));
         }
 
         System.out.println("========================================================================================\n");
@@ -204,7 +204,7 @@ public class OrderScreen {
 
             for (int index = 0; index < categories.size(); index++) {
                 String cat = categories.get(index);
-                System.out.printf("| %-85s|\n", String.format("                         %d. %s%s", index + 1, cat, ToppingCategories.isPremium(cat) ? " (Premium)" : ""));
+                System.out.printf("| %-85s|\n", String.format("                               %d. %s%s", index + 1, cat, ToppingCategories.isPremium(cat) ? " (Premium)" : ""));
             }
 
             System.out.println("========================================================================================\n");
@@ -222,7 +222,7 @@ public class OrderScreen {
 
             for (int index = 0; index < toppings.size(); index++) {
                     String topping = toppings.get(index);
-                    System.out.printf("| %-85s|\n", String.format("                         %d. %s", index + 1, topping));
+                    System.out.printf("| %-85s|\n", String.format("                            %d. %s", index + 1, topping));
                 }
             System.out.println("========================================================================================\n");
 
@@ -233,7 +233,7 @@ public class OrderScreen {
                 boolean isExtra = promptYesNo("Add extra portion? (yes/no): ");
                 System.out.println("\n========================================================================================");
                 sandwich.addPremiumTopping(toppingName, isExtra);
-                System.out.printf("| %-85s|\n", String.format("                    Added %s %s%s",
+                System.out.printf("| %-85s|\n", String.format("                      Added %s %s%s",
                         categoryChoice.toLowerCase(),
                         toppingName,
                         isExtra ? " (Extra)" : ""));
