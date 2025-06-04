@@ -5,7 +5,7 @@
 </div>
 
 
-<div align="center">
+
   
 ## Table of Contents:
  * [Project Description:](#project-description)
@@ -14,7 +14,7 @@
  * [Installation:](#installation)
  * [Usage:](#usage)
  * [License:](#license) 
-</div>
+
 
 
 
